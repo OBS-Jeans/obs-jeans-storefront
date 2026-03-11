@@ -28,21 +28,91 @@ export default async function ProductPreview({
     product,
   })
 
+  const hasDiscount = cheapestPrice?.price_type === "sale"
+
   return (
     <LocalizedClientLink href={`/products/${product.handle}`} className="group">
-      <div data-testid="product-wrapper">
-        <Thumbnail
-          thumbnail={product.thumbnail}
-          images={product.images}
-          size="full"
-          isFeatured={isFeatured}
-        />
-        <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle" data-testid="product-title">
+      <div
+        data-testid="product-wrapper"
+        className="obs-product-card transition-all duration-300 ease-out group-hover:scale-[1.02]"
+      >
+        {/* Image Container */}
+        <div
+          className="relative overflow-hidden rounded-sm border-2 border-transparent transition-all duration-300 group-hover:border-[#D4A853]/40 group-hover:shadow-lg"
+        >
+          <Thumbnail
+            thumbnail={product.thumbnail}
+            images={product.images}
+            size="full"
+            isFeatured={isFeatured}
+          />
+          {/* Sale Badge */}
+          {hasDiscount && (
+            <div
+              className="absolute top-3 left-3 px-3 py-1 text-xs font-display font-semibold uppercase tracking-wider text-white rounded-sm"
+              style={{ backgroundColor: "#E85A4F" }}
+            >
+              Oferta
+            </div>
+          )}
+          {/* Quick view overlay */}
+          <div className="absolute inset-0 bg-obs-charcoal/40 backdrop-blur-[2px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span className="border border-obs-cream/60 px-4 py-2 font-display text-sm text-obs-cream uppercase tracking-widest">
+              Ver Detalle
+            </span>
+          </div>
+        </div>
+
+        {/* Product Info */}
+        <div
+          className="mt-4 p-3 rounded-b-sm transition-colors duration-300 group-hover:bg-[#FAF8F5]"
+        >
+          {/* Title */}
+          <h3
+            className="font-display text-sm font-semibold leading-tight"
+            style={{ color: "#1C1917" }}
+            data-testid="product-title"
+          >
             {product.title}
-          </Text>
-          <div className="flex items-center gap-x-2">
-            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+          </h3>
+
+          {/* Model / Handle */}
+          <p
+            className="mt-1 text-xs uppercase tracking-[0.1em]"
+            style={{ color: "#78716C" }}
+          >
+            {product.handle?.replace(/-/g, " ")}
+          </p>
+
+          {/* Variant count */}
+          {product.variants && product.variants.length > 0 && (
+            <p className="mt-1 text-xs text-obs-stone/70">
+              {product.variants.length} tallas disponibles
+            </p>
+          )}
+
+          {/* Price */}
+          <div className="mt-3 flex items-center gap-x-2">
+            {cheapestPrice && (
+              <>
+                {hasDiscount && (
+                  <span
+                    className="text-sm line-through"
+                    style={{ color: "#78716C" }}
+                    data-testid="original-price"
+                  >
+                    {cheapestPrice.original_price}
+                  </span>
+                )}
+                <span
+                  className="font-display text-base font-bold"
+                  style={{ color: hasDiscount ? "#E85A4F" : "#D4A853" }}
+                  data-testid="price"
+                >
+                  {cheapestPrice.calculated_price}
+                </span>
+              </>
+            )}
           </div>
         </div>
       </div>

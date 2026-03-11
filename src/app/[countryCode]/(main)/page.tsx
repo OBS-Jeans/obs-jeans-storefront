@@ -2,13 +2,18 @@ import { Metadata } from "next"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
+import MarqueeBanner from "@modules/home/components/marquee-banner"
+import CategoryShowcase from "@modules/home/components/category-showcase"
+import TrustStrip from "@modules/home/components/trust-strip"
+import FactoryStory from "@modules/home/components/factory-story"
+import NewsletterCta from "@modules/home/components/newsletter-cta"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "OBS Jeans — Los Más Cómodos Al Mejor Precio",
   description:
-    "A performant frontend ecommerce starter template with Next.js 15 and Medusa.",
+    "Jeans de fábrica en Jalisco, México. Tallas inclusivas, calidad premium y los precios más accesibles. Compra en línea con envío a todo México.",
 }
 
 export default async function Home(props: {
@@ -29,13 +34,14 @@ export default async function Home(props: {
   }
 
   return (
-    <>
+    <div className="obs-grain">
       <Hero />
-      <div className="py-12">
-        <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
-        </ul>
-      </div>
-    </>
+      <MarqueeBanner />
+      <CategoryShowcase />
+      <FeaturedProducts collections={collections} region={region} />
+      <TrustStrip />
+      <FactoryStory />
+      <NewsletterCta />
+    </div>
   )
 }

@@ -34,6 +34,14 @@ module.exports = {
           80: "#1F2937",
           90: "#111827",
         },
+        "obs-charcoal": "#1C1917",
+        "obs-gold": "#D4A853",
+        "obs-cream": "#FAF8F5",
+        "obs-coral": "#E85A4F",
+        "obs-denim": "#1E3A5F",
+        "obs-stone": "#78716C",
+        "obs-sand": "#F5F0EB",
+        "obs-warm": "#57534E",
       },
       borderRadius: {
         none: "0px",
@@ -69,6 +77,8 @@ module.exports = {
           "Ubuntu",
           "sans-serif",
         ],
+        display: ["var(--font-syne)", "Syne", "sans-serif"],
+        serif: ["var(--font-libre-baskerville)", "Libre Baskerville", "Georgia", "serif"],
       },
       keyframes: {
         ring: {
@@ -140,6 +150,80 @@ module.exports = {
           "0%": { transform: "translateY(-100%)" },
           "100%": { transform: "translateY(0)" },
         },
+        "fade-up": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(20px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        "slide-in-right": {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(30px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateX(0)",
+          },
+        },
+        shimmer: {
+          "0%": {
+            backgroundPosition: "-200% 0",
+          },
+          "100%": {
+            backgroundPosition: "200% 0",
+          },
+        },
+        "bounce-down": {
+          "0%, 100%": {
+            transform: "translateY(0)",
+          },
+          "50%": {
+            transform: "translateY(8px)",
+          },
+        },
+        "hero-fade-in": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(30px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        "hero-line-grow": {
+          "0%": {
+            width: "0%",
+            opacity: "0",
+          },
+          "100%": {
+            width: "100%",
+            opacity: "1",
+          },
+        },
+        fadeInUp: {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(20px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        "marquee-scroll": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "count-up": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         ring: "ring 2.2s cubic-bezier(0.5, 0, 0.5, 1) infinite",
@@ -155,6 +239,19 @@ module.exports = {
         enter: "enter 200ms ease-out",
         "slide-in": "slide-in 1.2s cubic-bezier(.41,.73,.51,1.02)",
         leave: "leave 150ms ease-in forwards",
+        "fade-up": "fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "slide-in-right":
+          "slide-in-right 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        shimmer: "shimmer 2.5s ease-in-out infinite",
+        "bounce-down": "bounce-down 2s ease-in-out infinite",
+        "hero-fade-in": "hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "hero-fade-in-delay": "hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards",
+        "hero-fade-in-delay-2": "hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards",
+        "hero-fade-in-delay-3": "hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards",
+        "hero-fade-in-delay-4": "hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards",
+        "hero-line-grow": "hero-line-grow 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards",
+        "marquee": "marquee-scroll 30s linear infinite",
+        "count-up": "count-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
       },
     },
   },

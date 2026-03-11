@@ -110,3 +110,243 @@
     @apply text-[32px] leading-[44px] font-semibold;
   }
 }
+
+/* ===== OBS Jeans - Denim Editorial Mexicano ===== */
+
+:root {
+  --obs-charcoal: #1C1917;
+  --obs-gold: #D4A853;
+  --obs-gold-light: #E8C97A;
+  --obs-gold-dark: #B8903D;
+  --obs-cream: #FAF8F5;
+  --obs-coral: #E85A4F;
+  --obs-denim: #1E3A5F;
+  --obs-denim-light: #2A4F7A;
+  --obs-stone: #78716C;
+  --obs-sand: #F5F0EB;
+  --obs-warm: #57534E;
+  --font-display: var(--font-syne), sans-serif;
+  --font-serif: var(--font-libre-baskerville), Georgia, serif;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color - gold accent */
+::selection {
+  background-color: #D4A853;
+  color: #1C1917;
+}
+
+::-moz-selection {
+  background-color: #D4A853;
+  color: #1C1917;
+}
+
+/* Custom scrollbar - thin charcoal */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF8F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #78716C;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1C1917;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #78716C #FAF8F5;
+}
+
+/* Gold shimmer gradient */
+.obs-gold-gradient {
+  background: linear-gradient(
+    105deg,
+    #B8903D 0%,
+    #D4A853 25%,
+    #E8C97A 50%,
+    #D4A853 75%,
+    #B8903D 100%
+  );
+  background-size: 200% 100%;
+}
+
+/* Denim texture - CSS-only diagonal pattern */
+.obs-denim-texture {
+  position: relative;
+}
+
+.obs-denim-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(30, 58, 95, 0.03) 0px,
+      rgba(30, 58, 95, 0.03) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(30, 58, 95, 0.02) 0px,
+      rgba(30, 58, 95, 0.02) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Editorial heading style */
+.obs-editorial-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+/* Marquee animation */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-scroll-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.obs-marquee {
+  animation: marquee-scroll 30s linear infinite;
+}
+
+.obs-marquee-reverse {
+  animation: marquee-scroll-reverse 30s linear infinite;
+}
+
+.obs-marquee:hover,
+.obs-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+/* Scroll reveal animations */
+@keyframes reveal-up {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-scale {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.obs-reveal {
+  animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.obs-reveal-scale {
+  animation: reveal-scale 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Category card hover effects */
+.obs-category-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.obs-category-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 40%, transparent 100%);
+  transition: all 0.5s ease;
+}
+
+.obs-category-card:hover::after {
+  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 40%, transparent 100%);
+}
+
+.obs-category-card .obs-category-content {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.obs-category-card:hover .obs-category-content {
+  transform: translateY(-4px);
+}
+
+/* Product card enhanced hover */
+.obs-product-card {
+  position: relative;
+}
+
+.obs-product-card::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #D4A853, transparent);
+  transform: scaleX(0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.obs-product-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* Stitch pattern divider */
+.obs-stitch-divider {
+  background-image: repeating-linear-gradient(
+    90deg,
+    #D4A853 0px,
+    #D4A853 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  height: 2px;
+  opacity: 0.5;
+}
+
+/* Grain overlay for texture */
+.obs-grain::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
