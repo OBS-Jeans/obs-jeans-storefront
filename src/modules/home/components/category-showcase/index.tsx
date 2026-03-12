@@ -1,4 +1,5 @@
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import ScrollReveal from "@modules/common/components/scroll-reveal"
 
 const categories = [
   {
@@ -28,14 +29,17 @@ const CategoryShowcase = () => {
   return (
     <section className="content-container py-16">
       {/* Section title */}
-      <div className="mb-12">
-        <h2 className="font-display text-3xl font-bold text-obs-charcoal uppercase tracking-[0.1em]">
-          Explora por Categor&iacute;a
-        </h2>
-        <div className="w-16 h-[2px] bg-obs-gold mt-4" />
-      </div>
+      <ScrollReveal>
+        <div className="mb-12">
+          <h2 className="font-display text-3xl font-bold text-obs-charcoal uppercase tracking-[0.1em]">
+            Explora por Categor&iacute;a
+          </h2>
+          <div className="w-16 h-[2px] bg-obs-gold mt-4" />
+        </div>
+      </ScrollReveal>
 
       {/* Asymmetric grid */}
+      <ScrollReveal delay={0.2} scale>
       <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 md:min-h-[620px]">
         {categories.map((cat) => (
           <LocalizedClientLink
@@ -66,6 +70,7 @@ const CategoryShowcase = () => {
           </LocalizedClientLink>
         ))}
       </div>
+      </ScrollReveal>
     </section>
   )
 }

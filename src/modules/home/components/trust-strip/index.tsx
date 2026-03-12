@@ -1,3 +1,5 @@
+import { StaggerContainer, StaggerItem } from "@modules/common/components/stagger-children"
+
 const TruckIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -101,19 +103,21 @@ const TrustStrip = () => {
       <div className="h-[1px] bg-obs-gold/30" />
 
       <div className="content-container py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {trustItems.map((item) => (
-            <div key={item.title} className="flex items-center gap-4">
-              {item.icon}
-              <div>
-                <p className="font-display text-sm font-semibold text-obs-charcoal uppercase tracking-wide">
-                  {item.title}
-                </p>
-                <p className="text-xs text-obs-stone mt-1">{item.subtitle}</p>
+            <StaggerItem key={item.title}>
+              <div className="flex items-center gap-4">
+                {item.icon}
+                <div>
+                  <p className="font-display text-sm font-semibold text-obs-charcoal uppercase tracking-wide">
+                    {item.title}
+                  </p>
+                  <p className="text-xs text-obs-stone mt-1">{item.subtitle}</p>
+                </div>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   )

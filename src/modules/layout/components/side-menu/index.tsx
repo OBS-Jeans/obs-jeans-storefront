@@ -11,7 +11,7 @@ import LanguageSelect from "../language-select"
 import { HttpTypes } from "@medusajs/types"
 import { Locale } from "@lib/data/locales"
 
-const SideMenuItems = {
+const SideMenuFixedItems = {
   Inicio: "/",
   Tienda: "/store",
   "Mi Cuenta": "/account",
@@ -22,9 +22,10 @@ type SideMenuProps = {
   regions: HttpTypes.StoreRegion[] | null
   locales: Locale[] | null
   currentLocale: string | null
+  categories?: { id: string; name: string; handle: string }[]
 }
 
-const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
+const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps) => {
   const countryToggleState = useToggleState()
   const languageToggleState = useToggleState()
 
@@ -100,20 +101,40 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
 
                     {/* Menu links */}
                     <ul className="flex flex-col gap-2 items-start justify-start flex-1">
-                      {Object.entries(SideMenuItems).map(([name, href]) => {
-                        return (
-                          <li key={name} className="w-full">
-                            <LocalizedClientLink
-                              href={href}
-                              className="group flex items-center font-display text-2xl small:text-3xl leading-10 text-obs-cream/80 hover:text-obs-gold transition-all duration-200 py-2 border-l-2 border-transparent hover:border-obs-gold pl-4"
-                              onClick={close}
-                              data-testid={`${name.toLowerCase().replace(/\s+/g, "-")}-link`}
-                            >
-                              {name}
-                            </LocalizedClientLink>
+                      {Object.entries(SideMenuFixedItems).map(([name, href]) => (
+                        <li key={name} className="w-full">
+                          <LocalizedClientLink
+                            href={href}
+                            className="group flex items-center font-display text-2xl small:text-3xl leading-10 text-obs-cream/80 hover:text-obs-gold transition-all duration-200 py-2 border-l-2 border-transparent hover:border-obs-gold pl-4"
+                            onClick={close}
+                            data-testid={`${name.toLowerCase().replace(/\s+/g, "-")}-link`}
+                          >
+                            {name}
+                          </LocalizedClientLink>
+                        </li>
+                      ))}
+
+                      {/* Dynamic categories */}
+                      {categories && categories.length > 0 && (
+                        <>
+                          <li className="w-full mt-4 mb-2 pl-4">
+                            <span className="font-display text-xs uppercase tracking-[0.2em] text-obs-gold/60">
+                              Categorías
+                            </span>
                           </li>
-                        )
-                      })}
+                          {categories.map((cat) => (
+                            <li key={cat.id} className="w-full">
+                              <LocalizedClientLink
+                                href={`/categories/${cat.handle}`}
+                                className="group flex items-center font-display text-lg leading-8 text-obs-cream/60 hover:text-obs-gold transition-all duration-200 py-1 border-l-2 border-transparent hover:border-obs-gold/50 pl-4"
+                                onClick={close}
+                              >
+                                {cat.name}
+                              </LocalizedClientLink>
+                            </li>
+                          ))}
+                        </>
+                      )}
                     </ul>
 
                     {/* Bottom: Selectors + Footer */}

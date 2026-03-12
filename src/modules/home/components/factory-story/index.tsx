@@ -1,3 +1,6 @@
+import ScrollReveal from "@modules/common/components/scroll-reveal"
+import AnimatedCounter from "@modules/common/components/animated-counter"
+
 const stats = [
   { number: "15+", label: "Anos de Experiencia" },
   { number: "156+", label: "Modelos Disponibles" },
@@ -9,6 +12,7 @@ const FactoryStory = () => {
     <section className="w-full flex flex-col md:flex-row min-h-[600px]">
       {/* Left half — text content */}
       <div className="flex-1 bg-obs-charcoal flex items-center">
+        <ScrollReveal direction="left">
         <div className="max-w-lg px-8 md:px-12 py-16 md:py-0">
           {/* Eyebrow */}
           <span className="text-obs-gold text-xs tracking-[0.3em] font-display uppercase">
@@ -33,9 +37,7 @@ const FactoryStory = () => {
           <div className="flex gap-8 mt-10">
             {stats.map((stat) => (
               <div key={stat.label} className="flex flex-col">
-                <span className="font-display text-3xl font-bold text-obs-gold">
-                  {stat.number}
-                </span>
+                <AnimatedCounter target={stat.number} className="font-display text-3xl font-bold text-obs-gold" />
                 <span className="text-xs text-obs-stone uppercase tracking-wider mt-1">
                   {stat.label}
                 </span>
@@ -43,9 +45,11 @@ const FactoryStory = () => {
             ))}
           </div>
         </div>
+        </ScrollReveal>
       </div>
 
       {/* Right half — denim texture pattern */}
+      <ScrollReveal direction="right" delay={0.3}>
       <div
         className="flex-1 relative overflow-hidden min-h-[300px] md:min-h-0 flex items-center justify-center"
         style={{
@@ -86,6 +90,7 @@ const FactoryStory = () => {
           style={{ transform: "rotate(-45deg)" }}
         />
       </div>
+      </ScrollReveal>
     </section>
   )
 }

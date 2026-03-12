@@ -3,6 +3,7 @@ import Image from "next/image"
 
 import { listRegions } from "@lib/data/regions"
 import { listLocales } from "@lib/data/locales"
+import { listCategories } from "@lib/data/categories"
 import { getLocale } from "@lib/data/locale-actions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -11,11 +12,18 @@ import SideMenu from "@modules/layout/components/side-menu"
 import NavScrollWrapper from "./nav-scroll-wrapper"
 
 export default async function Nav() {
-  const [regions, locales, currentLocale] = await Promise.all([
+  const [regions, locales, currentLocale, categories] = await Promise.all([
     listRegions().then((regions: StoreRegion[]) => regions),
     listLocales(),
     getLocale(),
+    listCategories().catch(() => []),
   ])
+
+  // Filter to top-level categories only, exclude seed data
+  const seedHandles = ["shirts", "sweatshirts", "merch", "pants"]
+  const navCategories = (categories || [])
+    .filter((c) => !c.parent_category_id && !seedHandles.includes(c.handle))
+    .slice(0, 5)
 
   return (
     <NavScrollWrapper>
@@ -31,7 +39,7 @@ export default async function Nav() {
           {/* Left: Hamburger / SideMenu */}
           <div className="flex-1 basis-0 h-full flex items-center">
             <div className="h-full">
-              <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
+              <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} categories={navCategories} />
             </div>
           </div>
 
@@ -53,33 +61,26 @@ export default async function Nav() {
             </LocalizedClientLink>
           </div>
 
-          {/* Center: Category Links (Desktop) */}
-          <div className="hidden small:flex items-center gap-x-6 ml-8">
-            <LocalizedClientLink
-              href="/store"
-              className="font-display text-xs uppercase tracking-wider text-obs-cream/60 hover:text-obs-gold transition-colors duration-200"
-            >
-              Hombre
-            </LocalizedClientLink>
-            <LocalizedClientLink
-              href="/store"
-              className="font-display text-xs uppercase tracking-wider text-obs-cream/60 hover:text-obs-gold transition-colors duration-200"
-            >
-              Mujer
-            </LocalizedClientLink>
-            <LocalizedClientLink
-              href="/store"
-              className="font-display text-xs uppercase tracking-wider text-obs-cream/60 hover:text-obs-gold transition-colors duration-200"
-            >
-              Niños
-            </LocalizedClientLink>
-            <LocalizedClientLink
-              href="/store"
-              className="font-display text-xs uppercase tracking-wider text-obs-cream/60 hover:text-obs-gold transition-colors duration-200"
-            >
-              Ofertas
-            </LocalizedClientLink>
-          </div>
+          {/* Center: Category Links (Desktop) - Dynamic from Medusa */}
+          {navCategories.length > 0 && (
+            <div className="hidden small:flex items-center gap-x-6 ml-8">
+              {navCategories.map((category) => (
+                <LocalizedClientLink
+                  key={category.id}
+                  href={`/categories/${category.handle}`}
+                  className="font-display text-xs uppercase tracking-wider text-obs-cream/60 hover:text-obs-gold transition-colors duration-200"
+                >
+                  {category.name}
+                </LocalizedClientLink>
+              ))}
+              <LocalizedClientLink
+                href="/store"
+                className="font-display text-xs uppercase tracking-wider text-obs-cream/60 hover:text-obs-gold transition-colors duration-200"
+              >
+                Todo
+              </LocalizedClientLink>
+            </div>
+          )}
 
           {/* Right: Account + Cart */}
           <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">

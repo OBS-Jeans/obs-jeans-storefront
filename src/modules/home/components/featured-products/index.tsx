@@ -1,5 +1,6 @@
 import { HttpTypes } from "@medusajs/types"
 import ProductRail from "@modules/home/components/featured-products/product-rail"
+import ScrollReveal from "@modules/common/components/scroll-reveal"
 
 export default async function FeaturedProducts({
   collections,
@@ -13,7 +14,7 @@ export default async function FeaturedProducts({
       {/* Featured Products Section */}
       <section className="w-full">
         {/* Section Title */}
-        <div className="content-container pt-16 pb-4 text-center">
+        <ScrollReveal className="content-container pt-16 pb-4 text-center">
           <h2
             className="font-display text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-[0.15em]"
             style={{ color: "#1C1917" }}
@@ -24,7 +25,7 @@ export default async function FeaturedProducts({
             className="mx-auto mt-4 h-[2px] w-20"
             style={{ backgroundColor: "#D4A853" }}
           />
-        </div>
+        </ScrollReveal>
 
         {/* Product Rails */}
         {collections.map((collection) => (
@@ -34,12 +35,12 @@ export default async function FeaturedProducts({
         ))}
       </section>
 
-      {/* Brand Story Band: Hecho en Jalisco */}
+      {/* Brand Story Band */}
       <section
         className="w-full py-20"
         style={{ backgroundColor: "#F5F0EB" }}
       >
-        <div className="content-container text-center">
+        <ScrollReveal className="content-container text-center">
           <p
             className="font-serif italic text-2xl md:text-3xl lg:text-4xl leading-relaxed"
             style={{ color: "#1C1917" }}
@@ -56,7 +57,7 @@ export default async function FeaturedProducts({
             className="mx-auto mt-8 h-[2px] w-12"
             style={{ backgroundColor: "#D4A853" }}
           />
-        </div>
+        </ScrollReveal>
       </section>
     </>
   )
