@@ -18,7 +18,6 @@ export default async function RelatedProducts({
     return null
   }
 
-  // edit this function to define your related products logic
   const queryParams: HttpTypes.StoreProductListParams = {}
   if (region?.id) {
     queryParams.region_id = region.id
@@ -49,13 +48,19 @@ export default async function RelatedProducts({
   return (
     <div className="product-page-constraint">
       <div className="flex flex-col items-center text-center mb-16">
-        <span className="font-display text-xs uppercase tracking-[0.25em] text-obs-gold mb-4">
-          Tambi&eacute;n te puede gustar
+        <span className="obs-label-tag mb-4" style={{ color: "#b80049" }}>
+          También te puede gustar
         </span>
-        <p className="font-display text-2xl text-obs-charcoal max-w-lg tracking-tight">
+        <p
+          className="obs-editorial font-serif font-bold text-2xl tracking-tight"
+          style={{ color: "#1a1c1c" }}
+        >
           Productos Relacionados
         </p>
-        <div className="w-12 h-[2px] bg-obs-gold/40 mt-4" />
+        <div
+          className="w-12 h-[2px] mt-4"
+          style={{ background: "linear-gradient(90deg, transparent, #b80049, transparent)" }}
+        />
       </div>
 
       <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">

@@ -27,19 +27,39 @@ export default async function Nav() {
 
   return (
     <NavScrollWrapper>
-      {/* Promotional Top Bar */}
-      <div className="py-1.5 bg-obs-denim text-center">
-        <p className="text-xs text-obs-cream/80 font-display tracking-wide">
+      {/* Promotional Top Bar — rose palette */}
+      <div
+        className="py-1.5 text-center"
+        style={{ backgroundColor: "#b80049" }}
+      >
+        <p
+          className="text-xs tracking-wide"
+          style={{ color: "rgba(255,255,255,0.9)", fontFamily: "Inter, sans-serif" }}
+        >
           Envío gratis en compras mayores a $999
         </p>
       </div>
 
-      <header className="relative h-16 mx-auto bg-obs-charcoal">
+      {/* Main nav — glassmorphism per Floral Denim spec */}
+      <header
+        style={{
+          height: "64px",
+          backgroundColor: "rgba(249,249,249,0.8)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          borderBottom: "1px solid rgba(228,189,194,0.2)",
+        }}
+      >
         <nav className="content-container flex items-center justify-between w-full h-full">
           {/* Left: Hamburger / SideMenu */}
           <div className="flex-1 basis-0 h-full flex items-center">
             <div className="h-full">
-              <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} categories={navCategories} />
+              <SideMenu
+                regions={regions}
+                locales={locales}
+                currentLocale={currentLocale}
+                categories={navCategories}
+              />
             </div>
           </div>
 
@@ -47,7 +67,7 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="relative h-8 w-auto hover:opacity-80 transition-opacity duration-300"
+              className="relative h-8 w-auto hover:opacity-70 transition-opacity duration-300"
               data-testid="nav-store-link"
             >
               <Image
@@ -55,27 +75,38 @@ export default async function Nav() {
                 alt="OBS Jeans"
                 width={180}
                 height={40}
-                className="h-8 w-auto object-contain"
+                className="h-7 w-auto object-contain"
+                style={{ filter: "invert(1) sepia(1) saturate(2) hue-rotate(290deg) brightness(0.6)" }}
                 priority
               />
             </LocalizedClientLink>
           </div>
 
-          {/* Center: Category Links (Desktop) - Dynamic from Medusa */}
+          {/* Center: Category Links (Desktop) */}
           {navCategories.length > 0 && (
-            <div className="hidden small:flex items-center gap-x-6 ml-8">
+            <div className="hidden small:flex items-center gap-x-7 ml-8">
               {navCategories.map((category) => (
                 <LocalizedClientLink
                   key={category.id}
                   href={`/categories/${category.handle}`}
-                  className="font-display text-xs uppercase tracking-wider text-obs-cream/60 hover:text-obs-gold transition-colors duration-200"
+                  className="text-xs uppercase tracking-wider transition-colors duration-200"
+                  style={{
+                    color: "#805062",
+                    letterSpacing: "0.08em",
+                    fontFamily: "Inter, sans-serif",
+                  }}
                 >
                   {category.name}
                 </LocalizedClientLink>
               ))}
               <LocalizedClientLink
                 href="/store"
-                className="font-display text-xs uppercase tracking-wider text-obs-cream/60 hover:text-obs-gold transition-colors duration-200"
+                className="text-xs uppercase tracking-wider transition-colors duration-200"
+                style={{
+                  color: "#805062",
+                  letterSpacing: "0.08em",
+                  fontFamily: "Inter, sans-serif",
+                }}
               >
                 Todo
               </LocalizedClientLink>
@@ -83,13 +114,14 @@ export default async function Nav() {
           )}
 
           {/* Right: Account + Cart */}
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
-              {/* Search icon */}
+          <div className="flex items-center gap-x-5 h-full flex-1 basis-0 justify-end">
+            <div className="hidden small:flex items-center gap-x-5 h-full">
+              {/* Search */}
               <LocalizedClientLink
-                className="text-obs-cream/70 hover:text-obs-gold transition-colors duration-200"
+                className="transition-colors duration-200"
                 href="/store"
                 aria-label="Buscar"
+                style={{ color: "#805062" }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +129,7 @@ export default async function Nav() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-5 h-5"
+                  className="w-[18px] h-[18px]"
                 >
                   <path
                     strokeLinecap="round"
@@ -106,11 +138,13 @@ export default async function Nav() {
                   />
                 </svg>
               </LocalizedClientLink>
-              {/* Account link */}
+
+              {/* Account */}
               <LocalizedClientLink
-                className="text-obs-cream/70 hover:text-obs-gold transition-colors duration-200 font-display text-sm tracking-wide"
+                className="transition-colors duration-200"
                 href="/account"
                 data-testid="nav-account-link"
+                style={{ color: "#805062" }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +152,7 @@ export default async function Nav() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-5 h-5"
+                  className="w-[18px] h-[18px]"
                 >
                   <path
                     strokeLinecap="round"
@@ -128,14 +162,16 @@ export default async function Nav() {
                 </svg>
               </LocalizedClientLink>
             </div>
+
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="text-obs-cream/70 hover:text-obs-gold flex gap-2 font-display text-sm tracking-wide transition-colors duration-200"
+                  className="flex gap-2 text-sm transition-colors duration-200"
                   href="/cart"
                   data-testid="nav-cart-link"
+                  style={{ color: "#805062", fontFamily: "Inter, sans-serif" }}
                 >
-                  Cart (0)
+                  Carrito (0)
                 </LocalizedClientLink>
               }
             >

@@ -172,7 +172,8 @@ export default function ProductActions({
             !isValidVariant
           }
           variant="primary"
-          className="w-full h-10 !bg-obs-charcoal hover:!bg-obs-gold hover:!text-obs-charcoal !font-display !tracking-wider !uppercase !text-sm transition-colors duration-300"
+          className="w-full h-10 !text-white !tracking-wider !uppercase !text-xs transition-all duration-300 hover:!opacity-90 hover:!shadow-md rounded-full"
+          style={{ background: "linear-gradient(135deg, #b80049 0%, #e2165f 100%)", fontFamily: "Inter, sans-serif", fontWeight: 500 } as React.CSSProperties}
           isLoading={isAdding}
           data-testid="add-product-button"
         >

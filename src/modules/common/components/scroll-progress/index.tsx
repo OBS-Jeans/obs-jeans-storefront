@@ -15,7 +15,7 @@ export default function ScrollProgress() {
       className="fixed top-0 left-0 right-0 h-[2px] z-[100] origin-left"
       style={{
         scaleX,
-        background: "linear-gradient(90deg, #D4A853, #E8C97A, #D4A853)",
+        background: "linear-gradient(90deg, #b80049, #e2165f, #b80049)",
       }}
     />
   )

@@ -19,9 +19,12 @@ export default function NavScrollWrapper({
 
   return (
     <div
-      className={`sticky top-0 inset-x-0 z-50 transition-shadow duration-300 ${
-        scrolled ? "shadow-lg shadow-black/30" : ""
-      }`}
+      className="sticky top-0 inset-x-0 z-50 transition-shadow duration-300"
+      style={
+        scrolled
+          ? { boxShadow: "0 8px 32px rgba(128,80,98,0.08)" }
+          : undefined
+      }
     >
       {children}
     </div>

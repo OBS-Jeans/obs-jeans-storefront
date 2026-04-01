@@ -12,18 +12,32 @@ export default async function FeaturedProducts({
   return (
     <>
       {/* Featured Products Section */}
-      <section className="w-full">
+      <section className="w-full" style={{ backgroundColor: "#f9f9f9" }}>
         {/* Section Title */}
-        <ScrollReveal className="content-container pt-16 pb-4 text-center">
-          <h2
-            className="font-display text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-[0.15em]"
-            style={{ color: "#1C1917" }}
+        <ScrollReveal className="content-container pt-20 pb-6 text-center">
+          <span
+            className="obs-label-tag inline-block mb-4"
+            style={{ color: "#b80049" }}
           >
-            Nuestra Colección
+            Lo Más Nuevo
+          </span>
+          <h2
+            className="obs-editorial font-serif font-bold text-[2.4rem] md:text-5xl leading-tight"
+            style={{ color: "#1a1c1c" }}
+          >
+            Nuestra{" "}
+            <em
+              className="italic font-light"
+              style={{ color: "#b80049" }}
+            >
+              Colección
+            </em>
           </h2>
           <div
-            className="mx-auto mt-4 h-[2px] w-20"
-            style={{ backgroundColor: "#D4A853" }}
+            className="mx-auto mt-5 h-px w-16"
+            style={{
+              background: "linear-gradient(90deg, transparent, #b80049, transparent)",
+            }}
           />
         </ScrollReveal>
 
@@ -37,25 +51,32 @@ export default async function FeaturedProducts({
 
       {/* Brand Story Band */}
       <section
-        className="w-full py-20"
-        style={{ backgroundColor: "#F5F0EB" }}
+        className="w-full py-24 relative overflow-hidden"
+        style={{ backgroundColor: "#f3f3f3" }}
       >
-        <ScrollReveal className="content-container text-center">
+        {/* Floral pattern */}
+        <div className="absolute inset-0 obs-floral-pattern opacity-40 pointer-events-none" />
+
+        <ScrollReveal className="content-container text-center relative z-10">
           <p
-            className="font-serif italic text-2xl md:text-3xl lg:text-4xl leading-relaxed"
-            style={{ color: "#1C1917" }}
+            className="obs-editorial font-serif italic font-light text-[2rem] md:text-[2.8rem] lg:text-[3.5rem] leading-tight"
+            style={{ color: "#1a1c1c" }}
           >
-            Desde Jalisco para todo México
+            Desde{" "}
+            <span style={{ color: "#b80049" }}>Jalisco</span>{" "}
+            para todo México
           </p>
           <p
-            className="mt-6 font-serif text-base md:text-lg tracking-wide"
-            style={{ color: "#78716C" }}
+            className="mt-5 text-sm tracking-wide"
+            style={{ color: "#805062", fontFamily: "Inter, sans-serif" }}
           >
             Jeans de fábrica con tallas inclusivas del 1 al 25
           </p>
           <div
-            className="mx-auto mt-8 h-[2px] w-12"
-            style={{ backgroundColor: "#D4A853" }}
+            className="mx-auto mt-8 h-0.5 w-10 rounded-full"
+            style={{
+              background: "linear-gradient(90deg, #b80049, #e2165f)",
+            }}
           />
         </ScrollReveal>
       </section>

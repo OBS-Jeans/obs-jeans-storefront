@@ -21,14 +21,22 @@ export default function ProductPrice({
     return <div className="block w-32 h-9 bg-gray-100 animate-pulse" />
   }
 
+  const isOnSale = selectedPrice.price_type === "sale"
+
   return (
-    <div className="flex flex-col text-obs-charcoal">
+    <div className="flex flex-col">
       <span
-        className={clx("font-display text-2xl font-bold tracking-tight", {
-          "text-obs-coral": selectedPrice.price_type === "sale",
-        })}
+        className="obs-editorial font-serif font-bold text-2xl tracking-tight"
+        style={{ color: isOnSale ? "#e2165f" : "#b80049" }}
       >
-        {!variant && "Desde "}
+        {!variant && (
+          <span
+            className="obs-label-tag mr-1"
+            style={{ color: "rgba(128,80,98,0.6)", fontFamily: "Inter, sans-serif" }}
+          >
+            Desde{" "}
+          </span>
+        )}
         <span
           data-testid="product-price"
           data-value={selectedPrice.calculated_price_number}
@@ -36,19 +44,28 @@ export default function ProductPrice({
           {selectedPrice.calculated_price}
         </span>
       </span>
-      {selectedPrice.price_type === "sale" && (
+      {isOnSale && (
         <>
-          <p className="text-sm mt-1">
-            <span className="text-obs-stone">Antes: </span>
+          <p className="text-sm mt-1" style={{ fontFamily: "Inter, sans-serif" }}>
+            <span style={{ color: "rgba(128,80,98,0.6)" }}>Antes: </span>
             <span
-              className="line-through text-obs-stone"
+              className="line-through"
+              style={{ color: "rgba(128,80,98,0.5)" }}
               data-testid="original-product-price"
               data-value={selectedPrice.original_price_number}
             >
               {selectedPrice.original_price}
             </span>
           </p>
-          <span className="inline-block mt-1 text-xs font-display font-semibold uppercase tracking-wider text-obs-cream bg-obs-coral px-2 py-0.5 w-fit">
+          <span
+            className="inline-block mt-1 text-xs uppercase tracking-wider text-white px-3 py-0.5 w-fit rounded-full"
+            style={{
+              background: "linear-gradient(135deg, #b80049 0%, #e2165f 100%)",
+              fontFamily: "Inter, sans-serif",
+              fontWeight: 500,
+              fontSize: "10px",
+            }}
+          >
             -{selectedPrice.percentage_diff}% OFF
           </span>
         </>

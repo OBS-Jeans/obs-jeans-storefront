@@ -34,7 +34,7 @@ export default async function Home(props: {
   }
 
   return (
-    <div className="obs-grain">
+    <div style={{ backgroundColor: "#f9f9f9" }}>
       <ScrollProgress />
       <HeroClient />
       <MarqueeBanner />

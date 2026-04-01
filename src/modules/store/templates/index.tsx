@@ -19,25 +19,55 @@ const StoreTemplate = ({
   const sort = sortBy || "created_at"
 
   return (
-    <div className="bg-obs-sand min-h-screen">
-      {/* Page Header */}
-      <div className="bg-obs-charcoal py-12 small:py-16">
-        <div className="content-container text-center">
-          <span className="font-display text-xs uppercase tracking-[0.25em] text-obs-gold/70 mb-3 block">
+    <div style={{ backgroundColor: "#f9f9f9", minHeight: "100vh" }}>
+
+      {/* Editorial page header */}
+      <div
+        className="relative overflow-hidden py-16 small:py-20"
+        style={{ backgroundColor: "#f3f3f3" }}
+      >
+        {/* Floral dot pattern */}
+        <div className="absolute inset-0 obs-floral-pattern opacity-50 pointer-events-none" />
+
+        {/* Rose radial glow */}
+        <div
+          className="absolute left-1/2 bottom-0 -translate-x-1/2 w-[500px] h-[200px] pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at bottom, rgba(184,0,73,0.07) 0%, transparent 70%)",
+          }}
+        />
+
+        <div className="content-container text-center relative z-10">
+          <span
+            className="obs-label-tag inline-block mb-4"
+            style={{ color: "#b80049" }}
+          >
             OBS Jeans
           </span>
           <h1
-            className="font-display text-3xl small:text-5xl font-bold text-obs-cream tracking-tight"
+            className="obs-editorial font-serif font-bold text-4xl small:text-6xl"
+            style={{ color: "#1a1c1c" }}
             data-testid="store-page-title"
           >
-            Nuestra Tienda
+            Nuestra{" "}
+            <em className="italic font-light" style={{ color: "#b80049" }}>
+              Tienda
+            </em>
           </h1>
-          <div className="w-16 h-[2px] bg-obs-gold/50 mx-auto mt-4" />
+          <div
+            className="mx-auto mt-5 h-px w-14"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, #b80049, transparent)",
+            }}
+          />
         </div>
       </div>
 
+      {/* Products area */}
       <div
-        className="flex flex-col small:flex-row small:items-start py-8 content-container"
+        className="flex flex-col small:flex-row small:items-start py-10 content-container gap-8"
         data-testid="category-container"
       >
         <RefinementList sortBy={sort} />
