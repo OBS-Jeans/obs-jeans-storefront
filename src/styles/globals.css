@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,300;1,400;1,600&display=swap');
+
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -111,9 +113,10 @@
   }
 }
 
-/* ===== OBS Jeans - Denim Editorial Mexicano ===== */
+/* ===== OBS Jeans - Floral Denim Editorial ===== */
 
 :root {
+  /* Legacy dark palette */
   --obs-charcoal: #1C1917;
   --obs-gold: #D4A853;
   --obs-gold-light: #E8C97A;
@@ -127,6 +130,17 @@
   --obs-warm: #57534E;
   --font-display: var(--font-syne), sans-serif;
   --font-serif: var(--font-libre-baskerville), Georgia, serif;
+
+  /* Floral Denim Editorial */
+  --obs-rose: #b80049;
+  --obs-rose-bright: #e2165f;
+  --obs-plum: #805062;
+  --obs-surface: #f9f9f9;
+  --obs-surface-low: #f3f3f3;
+  --obs-surface-high: #e8e8e8;
+  --obs-on-surface: #1a1c1c;
+  --obs-outline: #e4bdc2;
+  --font-editorial: "Noto Serif", var(--font-noto-serif), Georgia, serif;
 }
 
 /* Smooth scroll */
@@ -134,40 +148,40 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Selection color - gold accent */
+/* Selection color — rose accent */
 ::selection {
-  background-color: #D4A853;
-  color: #1C1917;
+  background-color: rgba(184, 0, 73, 0.15);
+  color: #1a1c1c;
 }
 
 ::-moz-selection {
-  background-color: #D4A853;
-  color: #1C1917;
+  background-color: rgba(184, 0, 73, 0.15);
+  color: #1a1c1c;
 }
 
-/* Custom scrollbar - thin charcoal */
+/* Custom scrollbar — soft rose */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAF8F5;
+  background: #f9f9f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #78716C;
+  background: rgba(228, 189, 194, 0.7);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #1C1917;
+  background: #b80049;
 }
 
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #78716C #FAF8F5;
+  scrollbar-color: rgba(228, 189, 194, 0.7) #f9f9f9;
 }
 
 /* Gold shimmer gradient */
@@ -314,8 +328,8 @@ html {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #D4A853, transparent);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #b80049, transparent);
   transform: scaleX(0);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -328,13 +342,13 @@ html {
 .obs-stitch-divider {
   background-image: repeating-linear-gradient(
     90deg,
-    #D4A853 0px,
-    #D4A853 8px,
+    #b80049 0px,
+    #b80049 8px,
     transparent 8px,
     transparent 16px
   );
   height: 2px;
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 /* Grain overlay for texture */
@@ -349,4 +363,127 @@ html {
   z-index: 9999;
   opacity: 0.015;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ===== Floral Denim Editorial Styles ===== */
+
+/* Rose gradient CTA — primary to primary-container at 135deg */
+.obs-rose-gradient {
+  background: linear-gradient(135deg, #b80049 0%, #e2165f 100%);
+}
+
+/* Glassmorphism surface */
+.obs-glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Ghost border — felt not seen */
+.obs-ghost-border {
+  border: 1px solid rgba(228, 189, 194, 0.15);
+}
+
+/* Ambient shadow — plum tint, 40px blur */
+.obs-ambient-shadow {
+  box-shadow: 0 40px 80px rgba(128, 80, 98, 0.08);
+}
+
+/* Editorial heading — Noto Serif, tight tracking */
+.obs-editorial {
+  font-family: "Noto Serif", Georgia, serif;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+/* Label tag — category style */
+.obs-label-tag {
+  font-family: Inter, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Floral petal dot pattern */
+.obs-floral-pattern {
+  background-image:
+    radial-gradient(circle, rgba(184, 0, 73, 0.06) 1px, transparent 1px),
+    radial-gradient(circle, rgba(226, 22, 95, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px, 48px 48px;
+  background-position: 0 0, 12px 12px;
+}
+
+/* Signature Editorial Look image card */
+.obs-editorial-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.obs-editorial-card .obs-editorial-card-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  transform: translate(-4px, 20px);
+}
+
+/* Rose surface scroll reveal */
+@keyframes floral-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.obs-floral-reveal {
+  animation: floral-reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Hero editorial entrance */
+@keyframes editorial-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) skewY(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) skewY(0deg);
+  }
+}
+
+.obs-hero-enter {
+  opacity: 0;
+  animation: editorial-enter 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.obs-hero-enter-1 { animation-delay: 0.1s; }
+.obs-hero-enter-2 { animation-delay: 0.25s; }
+.obs-hero-enter-3 { animation-delay: 0.4s; }
+.obs-hero-enter-4 { animation-delay: 0.55s; }
+.obs-hero-enter-5 { animation-delay: 0.7s; }
+
+/* Line grow from center */
+@keyframes line-expand {
+  0% { transform: scaleX(0); opacity: 0; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+
+.obs-line-expand {
+  animation: line-expand 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+  transform-origin: left center;
+}
+
+/* Floating badge pulse */
+@keyframes soft-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(0.98); }
+}
+
+.obs-soft-pulse {
+  animation: soft-pulse 3s ease-in-out infinite;
 }

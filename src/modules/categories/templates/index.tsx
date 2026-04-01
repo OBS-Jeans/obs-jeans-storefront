@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
-import InteractiveLink from "@modules/common/components/interactive-link"
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
 import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
@@ -37,67 +36,112 @@ export default function CategoryTemplate({
   getParents(category)
 
   return (
-    <div className="bg-obs-sand min-h-screen">
-      {/* Category Header */}
-      <div className="bg-obs-charcoal py-12 small:py-16">
-        <div className="content-container text-center">
+    <div style={{ backgroundColor: "#f9f9f9", minHeight: "100vh" }}>
+
+      {/* Editorial category header */}
+      <div
+        className="relative overflow-hidden py-16 small:py-20"
+        style={{ backgroundColor: "#f3f3f3" }}
+      >
+        {/* Floral dot pattern */}
+        <div className="absolute inset-0 obs-floral-pattern opacity-50 pointer-events-none" />
+
+        {/* Rose radial glow */}
+        <div
+          className="absolute left-1/2 bottom-0 -translate-x-1/2 w-[500px] h-[200px] pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at bottom, rgba(184,0,73,0.07) 0%, transparent 70%)",
+          }}
+        />
+
+        <div className="content-container text-center relative z-10">
           {/* Breadcrumbs */}
           {parents.length > 0 && (
-            <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="flex items-center justify-center gap-2 mb-5">
               {parents.reverse().map((parent) => (
-                <span key={parent.id} className="text-obs-cream/50 text-sm">
+                <span
+                  key={parent.id}
+                  className="flex items-center gap-2 text-xs"
+                  style={{ color: "rgba(128,80,98,0.6)", fontFamily: "Inter, sans-serif" }}
+                >
                   <LocalizedClientLink
-                    className="hover:text-obs-gold transition-colors duration-200 font-display"
+                    className="hover:text-obs-rose transition-colors duration-200"
                     href={`/categories/${parent.handle}`}
                     data-testid="sort-by-link"
                   >
                     {parent.name}
                   </LocalizedClientLink>
-                  <span className="ml-2">/</span>
+                  <span style={{ color: "rgba(228,189,194,0.8)" }}>/</span>
                 </span>
               ))}
             </div>
           )}
-          <span className="font-display text-xs uppercase tracking-[0.25em] text-obs-gold/70 mb-3 block">
-            Categor&iacute;a
+
+          <span
+            className="obs-label-tag inline-block mb-4"
+            style={{ color: "#b80049" }}
+          >
+            Categoría
           </span>
+
           <h1
-            className="font-display text-3xl small:text-5xl font-bold text-obs-cream tracking-tight"
+            className="obs-editorial font-serif font-bold text-4xl small:text-6xl"
+            style={{ color: "#1a1c1c" }}
             data-testid="category-page-title"
           >
             {category.name}
           </h1>
-          <div className="w-16 h-[2px] bg-obs-gold/50 mx-auto mt-4" />
+
+          <div
+            className="mx-auto mt-5 h-px w-14"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, #b80049, transparent)",
+            }}
+          />
+
           {category.description && (
-            <p className="font-serif italic text-obs-stone text-base mt-4 max-w-xl mx-auto">
+            <p
+              className="obs-editorial font-serif italic font-light text-base mt-5 max-w-xl mx-auto"
+              style={{ color: "#805062" }}
+            >
               {category.description}
             </p>
           )}
         </div>
       </div>
 
+      {/* Products area */}
       <div
-        className="flex flex-col small:flex-row small:items-start py-8 content-container"
+        className="flex flex-col small:flex-row small:items-start py-10 content-container gap-8"
         data-testid="category-container"
       >
         <RefinementList sortBy={sort} data-testid="sort-by-container" />
+
         <div className="w-full">
+          {/* Subcategory chips */}
           {category.category_children && category.category_children.length > 0 && (
-            <div className="mb-8">
-              <ul className="flex flex-wrap gap-3">
-                {category.category_children?.map((c) => (
-                  <li key={c.id}>
-                    <LocalizedClientLink
-                      href={`/categories/${c.handle}`}
-                      className="inline-block font-display text-sm uppercase tracking-wider text-obs-charcoal border border-obs-charcoal/20 px-4 py-2 hover:bg-obs-charcoal hover:text-obs-cream transition-colors duration-200"
-                    >
-                      {c.name}
-                    </LocalizedClientLink>
-                  </li>
-                ))}
-              </ul>
+            <div className="mb-8 flex flex-wrap gap-2">
+              {category.category_children.map((c) => (
+                <LocalizedClientLink
+                  key={c.id}
+                  href={`/categories/${c.handle}`}
+                  className="inline-flex items-center text-xs rounded-full px-4 py-2 transition-all duration-200 hover:opacity-80"
+                  style={{
+                    color: "#805062",
+                    fontFamily: "Inter, sans-serif",
+                    backgroundColor: "white",
+                    border: "1px solid rgba(228,189,194,0.4)",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  {c.name}
+                </LocalizedClientLink>
+              ))}
             </div>
           )}
+
           <Suspense
             fallback={
               <SkeletonProductGrid

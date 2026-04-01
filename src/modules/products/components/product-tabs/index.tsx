@@ -11,6 +11,9 @@ type ProductTabsProps = {
   product: HttpTypes.StoreProduct
 }
 
+const labelStyle = { color: "#1a1c1c", fontFamily: "Inter, sans-serif", fontWeight: 600, fontSize: "11px", letterSpacing: "0.08em", textTransform: "uppercase" as const }
+const bodyStyle = { color: "#805062", fontFamily: "Inter, sans-serif" }
+
 const ProductTabs = ({ product }: ProductTabsProps) => {
   const tabs = [
     {
@@ -43,30 +46,30 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
 
 const ProductInfoTab = ({ product }: ProductTabsProps) => {
   return (
-    <div className="text-small-regular py-8 text-obs-warm">
+    <div className="py-8 text-sm" style={bodyStyle}>
       <div className="grid grid-cols-2 gap-x-8">
         <div className="flex flex-col gap-y-4">
           <div>
-            <span className="font-display font-semibold text-obs-charcoal text-sm">Material</span>
-            <p>{product.material ? product.material : "-"}</p>
+            <span style={labelStyle}>Material</span>
+            <p className="mt-1">{product.material ? product.material : "-"}</p>
           </div>
           <div>
-            <span className="font-display font-semibold text-obs-charcoal text-sm">Pa&iacute;s de Origen</span>
-            <p>{product.origin_country ? product.origin_country : "-"}</p>
+            <span style={labelStyle}>País de Origen</span>
+            <p className="mt-1">{product.origin_country ? product.origin_country : "-"}</p>
           </div>
           <div>
-            <span className="font-display font-semibold text-obs-charcoal text-sm">Tipo</span>
-            <p>{product.type ? product.type.value : "-"}</p>
+            <span style={labelStyle}>Tipo</span>
+            <p className="mt-1">{product.type ? product.type.value : "-"}</p>
           </div>
         </div>
         <div className="flex flex-col gap-y-4">
           <div>
-            <span className="font-display font-semibold text-obs-charcoal text-sm">Peso</span>
-            <p>{product.weight ? `${product.weight} g` : "-"}</p>
+            <span style={labelStyle}>Peso</span>
+            <p className="mt-1">{product.weight ? `${product.weight} g` : "-"}</p>
           </div>
           <div>
-            <span className="font-display font-semibold text-obs-charcoal text-sm">Dimensiones</span>
-            <p>
+            <span style={labelStyle}>Dimensiones</span>
+            <p className="mt-1">
               {product.length && product.width && product.height
                 ? `${product.length}L x ${product.width}A x ${product.height}Al`
                 : "-"}
@@ -80,35 +83,35 @@ const ProductInfoTab = ({ product }: ProductTabsProps) => {
 
 const ShippingInfoTab = () => {
   return (
-    <div className="text-small-regular py-8 text-obs-warm">
+    <div className="py-8 text-sm" style={bodyStyle}>
       <div className="grid grid-cols-1 gap-y-8">
-        <div className="flex items-start gap-x-2">
+        <div className="flex items-start gap-x-3">
           <FastDelivery />
           <div>
-            <span className="font-display font-semibold text-obs-charcoal text-sm">Env&iacute;o R&aacute;pido</span>
-            <p className="max-w-sm">
-              Tu pedido llegar&aacute; en 3-5 d&iacute;as h&aacute;biles a tu domicilio
-              o punto de recolecci&oacute;n. Env&iacute;o gratis en compras mayores a $999.
+            <span style={labelStyle}>Envío Rápido</span>
+            <p className="max-w-sm mt-1">
+              Tu pedido llegará en 3-5 días hábiles a tu domicilio
+              o punto de recolección. Envío gratis en compras mayores a $999.
             </p>
           </div>
         </div>
-        <div className="flex items-start gap-x-2">
+        <div className="flex items-start gap-x-3">
           <Refresh />
           <div>
-            <span className="font-display font-semibold text-obs-charcoal text-sm">Cambios Sencillos</span>
-            <p className="max-w-sm">
-              &iquest;No te qued&oacute; la talla? No te preocupes, cambiamos
+            <span style={labelStyle}>Cambios Sencillos</span>
+            <p className="max-w-sm mt-1">
+              ¿No te quedó la talla? No te preocupes, cambiamos
               tu producto por uno nuevo sin complicaciones.
             </p>
           </div>
         </div>
-        <div className="flex items-start gap-x-2">
+        <div className="flex items-start gap-x-3">
           <Back />
           <div>
-            <span className="font-display font-semibold text-obs-charcoal text-sm">Devoluciones F&aacute;ciles</span>
-            <p className="max-w-sm">
-              Solo env&iacute;a tu producto de vuelta y te reembolsamos.
-              Sin preguntas, nos encargamos de que el proceso sea lo m&aacute;s sencillo posible.
+            <span style={labelStyle}>Devoluciones Fáciles</span>
+            <p className="max-w-sm mt-1">
+              Solo envía tu producto de vuelta y te reembolsamos.
+              Sin preguntas, nos encargamos de que el proceso sea lo más sencillo posible.
             </p>
           </div>
         </div>

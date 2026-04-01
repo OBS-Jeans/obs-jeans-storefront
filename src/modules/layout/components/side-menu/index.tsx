@@ -38,16 +38,16 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
               <div className="relative flex h-full">
                 <Popover.Button
                   data-testid="nav-menu-button"
-                  className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none text-obs-cream/70 hover:text-obs-gold"
+                  className="relative h-full flex items-center transition-colors duration-200 focus:outline-none"
+                  style={{ color: "#805062" }}
                 >
-                  {/* Hamburger icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6"
+                    className="w-5 h-5"
                   >
                     <path
                       strokeLinecap="round"
@@ -58,9 +58,11 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                 </Popover.Button>
               </div>
 
+              {/* Backdrop */}
               {open && (
                 <div
-                  className="fixed inset-0 z-[50] bg-black/40 pointer-events-auto backdrop-blur-sm"
+                  className="fixed inset-0 z-[50] pointer-events-auto"
+                  style={{ backgroundColor: "rgba(26,28,28,0.2)", backdropFilter: "blur(4px)" }}
                   onClick={close}
                   data-testid="side-menu-backdrop"
                 />
@@ -76,40 +78,60 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                 leaveFrom="opacity-100 translate-x-0"
                 leaveTo="opacity-0 -translate-x-full"
               >
-                <PopoverPanel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-[51] inset-x-0 text-sm m-2">
+                <PopoverPanel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-[51] inset-x-0 m-2">
                   <div
                     data-testid="nav-menu-popup"
-                    className="flex flex-col h-full bg-obs-charcoal/95 backdrop-blur-xl rounded-rounded justify-between p-8 border border-obs-warm/10"
+                    className="flex flex-col h-full rounded-2xl justify-between p-8"
+                    style={{
+                      backgroundColor: "rgba(249,249,249,0.97)",
+                      backdropFilter: "blur(24px)",
+                      WebkitBackdropFilter: "blur(24px)",
+                      border: "1px solid rgba(228,189,194,0.25)",
+                      boxShadow: "0 40px 80px rgba(128,80,98,0.12)",
+                    }}
                   >
-                    {/* Top: Close button + Branding */}
+                    {/* Top: Close + Logo */}
                     <div>
-                      <div className="flex items-center justify-between mb-12">
+                      <div className="flex items-center justify-between mb-14">
                         <img
                           src="/images/obs-logo-white.png"
                           alt="OBS Jeans"
-                          className="h-7 w-auto object-contain"
+                          className="h-6 w-auto object-contain"
+                          style={{ filter: "brightness(0) opacity(0.8)" }}
                         />
                         <button
                           data-testid="close-menu-button"
                           onClick={close}
-                          className="text-obs-cream/60 hover:text-obs-gold transition-colors duration-200"
+                          className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200"
+                          style={{
+                            color: "#805062",
+                            border: "1px solid rgba(228,189,194,0.4)",
+                          }}
                         >
                           <XMark />
                         </button>
                       </div>
                     </div>
 
-                    {/* Menu links */}
-                    <ul className="flex flex-col gap-2 items-start justify-start flex-1">
+                    {/* Nav links */}
+                    <ul className="flex flex-col gap-1 items-start justify-start flex-1">
                       {Object.entries(SideMenuFixedItems).map(([name, href]) => (
                         <li key={name} className="w-full">
                           <LocalizedClientLink
                             href={href}
-                            className="group flex items-center font-display text-2xl small:text-3xl leading-10 text-obs-cream/80 hover:text-obs-gold transition-all duration-200 py-2 border-l-2 border-transparent hover:border-obs-gold pl-4"
+                            className="group flex items-center py-3 transition-all duration-200"
+                            style={{
+                              borderBottom: "1px solid rgba(228,189,194,0.15)",
+                            }}
                             onClick={close}
                             data-testid={`${name.toLowerCase().replace(/\s+/g, "-")}-link`}
                           >
-                            {name}
+                            <span
+                              className="obs-editorial font-serif font-bold text-3xl small:text-4xl leading-none tracking-tight group-hover:translate-x-1 transition-transform duration-200"
+                              style={{ color: "#1a1c1c" }}
+                            >
+                              {name}
+                            </span>
                           </LocalizedClientLink>
                         </li>
                       ))}
@@ -117,8 +139,8 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                       {/* Dynamic categories */}
                       {categories && categories.length > 0 && (
                         <>
-                          <li className="w-full mt-4 mb-2 pl-4">
-                            <span className="font-display text-xs uppercase tracking-[0.2em] text-obs-gold/60">
+                          <li className="w-full mt-6 mb-3">
+                            <span className="obs-label-tag" style={{ color: "#b80049" }}>
                               Categorías
                             </span>
                           </li>
@@ -126,9 +148,17 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                             <li key={cat.id} className="w-full">
                               <LocalizedClientLink
                                 href={`/categories/${cat.handle}`}
-                                className="group flex items-center font-display text-lg leading-8 text-obs-cream/60 hover:text-obs-gold transition-all duration-200 py-1 border-l-2 border-transparent hover:border-obs-gold/50 pl-4"
+                                className="flex items-center gap-2 py-1.5 text-sm transition-colors duration-200 hover:text-obs-rose"
+                                style={{
+                                  color: "#805062",
+                                  fontFamily: "Inter, sans-serif",
+                                }}
                                 onClick={close}
                               >
+                                <span
+                                  className="w-1 h-1 rounded-full flex-shrink-0"
+                                  style={{ backgroundColor: "rgba(184,0,73,0.4)" }}
+                                />
                                 {cat.name}
                               </LocalizedClientLink>
                             </li>
@@ -138,10 +168,14 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                     </ul>
 
                     {/* Bottom: Selectors + Footer */}
-                    <div className="flex flex-col gap-y-6 pt-6 border-t border-obs-warm/10">
+                    <div
+                      className="flex flex-col gap-y-5 pt-6"
+                      style={{ borderTop: "1px solid rgba(228,189,194,0.25)" }}
+                    >
                       {!!locales?.length && (
                         <div
-                          className="flex justify-between text-obs-cream/60 hover:text-obs-gold transition-colors duration-200"
+                          className="flex justify-between transition-colors duration-200"
+                          style={{ color: "#805062" }}
                           onMouseEnter={languageToggleState.open}
                           onMouseLeave={languageToggleState.close}
                         >
@@ -158,8 +192,10 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                           />
                         </div>
                       )}
+
                       <div
-                        className="flex justify-between text-obs-cream/60 hover:text-obs-gold transition-colors duration-200"
+                        className="flex justify-between transition-colors duration-200"
+                        style={{ color: "#805062" }}
                         onMouseEnter={countryToggleState.open}
                         onMouseLeave={countryToggleState.close}
                       >
@@ -176,12 +212,19 @@ const SideMenu = ({ regions, locales, currentLocale, categories }: SideMenuProps
                           )}
                         />
                       </div>
+
                       <div className="flex flex-col gap-1">
-                        <Text className="text-obs-stone text-xs font-serif italic">
-                          Hecho en Jalisco, M&eacute;xico
+                        <Text
+                          className="obs-editorial font-serif italic text-sm"
+                          style={{ color: "#b80049" }}
+                        >
+                          Hecho en Jalisco, México
                         </Text>
-                        <Text className="text-obs-warm/50 text-xs">
-                          &copy; {new Date().getFullYear()} OBS Jeans. Todos los derechos reservados.
+                        <Text
+                          className="text-xs"
+                          style={{ color: "rgba(128,80,98,0.45)", fontFamily: "Inter, sans-serif" }}
+                        >
+                          &copy; {new Date().getFullYear()} OBS Jeans
                         </Text>
                       </div>
                     </div>

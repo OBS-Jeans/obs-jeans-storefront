@@ -1,19 +1,29 @@
 "use client"
 
 const marqueeItems = [
-  "HECHO EN JALISCO",
-  "TALLAS 1-25",
-  "DIRECTO DE FABRICA",
-  "ENVIO A TODO MEXICO",
-  "CALIDAD PREMIUM",
+  "Hecho en Jalisco",
+  "Tallas 1–25",
+  "Directo de Fábrica",
+  "Envío a Todo México",
+  "Calidad Premium",
 ]
 
 const MarqueeContent = () => (
   <>
     {marqueeItems.map((item, i) => (
-      <span key={i} className="flex items-center gap-6 shrink-0">
-        <span>{item}</span>
-        <span className="text-obs-gold">&#9670;</span>
+      <span key={i} className="flex items-center gap-8 shrink-0">
+        <span
+          className="font-serif italic text-sm"
+          style={{ color: "#1a1c1c", fontFamily: '"Noto Serif", Georgia, serif' }}
+        >
+          {item}
+        </span>
+        <span
+          className="text-base select-none"
+          style={{ color: "#b80049" }}
+        >
+          ✦
+        </span>
       </span>
     ))}
   </>
@@ -21,7 +31,10 @@ const MarqueeContent = () => (
 
 const MarqueeBanner = () => {
   return (
-    <div className="w-full bg-obs-denim border-y border-obs-gold/40 overflow-hidden">
+    <div
+      className="w-full overflow-hidden"
+      style={{ backgroundColor: "#f3f3f3" }}
+    >
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -38,11 +51,11 @@ const MarqueeBanner = () => {
       />
 
       {/* Row 1 — scrolls left */}
-      <div className="py-3 overflow-hidden">
+      <div className="py-4 overflow-hidden">
         <div
-          className="flex items-center gap-6 text-sm text-obs-cream/80 uppercase tracking-[0.3em] font-display whitespace-nowrap"
+          className="flex items-center gap-8 whitespace-nowrap"
           style={{
-            animation: "marquee-left 30s linear infinite",
+            animation: "marquee-left 35s linear infinite",
             width: "max-content",
           }}
         >
@@ -51,15 +64,15 @@ const MarqueeBanner = () => {
         </div>
       </div>
 
-      {/* Thin gold separator */}
-      <div className="h-[1px] bg-obs-gold/20" />
+      {/* Tonal separator */}
+      <div style={{ height: "1px", backgroundColor: "rgba(228,189,194,0.3)" }} />
 
       {/* Row 2 — scrolls right */}
-      <div className="py-3 overflow-hidden">
+      <div className="py-4 overflow-hidden">
         <div
-          className="flex items-center gap-6 text-sm text-obs-cream/80 uppercase tracking-[0.3em] font-display whitespace-nowrap"
+          className="flex items-center gap-8 whitespace-nowrap"
           style={{
-            animation: "marquee-right 30s linear infinite",
+            animation: "marquee-right 35s linear infinite",
             width: "max-content",
           }}
         >

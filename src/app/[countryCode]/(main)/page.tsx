@@ -8,6 +8,7 @@ import TrustStrip from "@modules/home/components/trust-strip"
 import FactoryStory from "@modules/home/components/factory-story"
 import NewsletterCta from "@modules/home/components/newsletter-cta"
 import BrandVideo from "@modules/home/components/brand-video"
+import CraftProcess from "@modules/home/components/craft-process"
 import ScrollProgress from "@modules/common/components/scroll-progress"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
@@ -34,7 +35,7 @@ export default async function Home(props: {
   }
 
   return (
-    <div className="obs-grain">
+    <div style={{ backgroundColor: "#f9f9f9" }}>
       <ScrollProgress />
       <HeroClient />
       <MarqueeBanner />
@@ -42,6 +43,7 @@ export default async function Home(props: {
       <FeaturedProducts collections={collections} region={region} />
       <TrustStrip />
       <BrandVideo />
+      <CraftProcess />
       <FactoryStory />
       <NewsletterCta />
     </div>

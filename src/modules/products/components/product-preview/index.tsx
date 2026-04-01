@@ -38,7 +38,7 @@ export default async function ProductPreview({
       >
         {/* Image Container */}
         <div
-          className="relative overflow-hidden rounded-sm border-2 border-transparent transition-all duration-300 group-hover:border-[#D4A853]/40 group-hover:shadow-lg"
+          className="relative overflow-hidden rounded-sm border-2 border-transparent transition-all duration-300 group-hover:border-obs-rose/30 group-hover:shadow-lg"
         >
           <Thumbnail
             thumbnail={product.thumbnail}
@@ -56,8 +56,20 @@ export default async function ProductPreview({
             </div>
           )}
           {/* Quick view overlay */}
-          <div className="absolute inset-0 bg-obs-charcoal/40 backdrop-blur-[2px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <span className="border border-obs-cream/60 px-4 py-2 font-display text-sm text-obs-cream uppercase tracking-widest">
+          <div
+            className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{ backgroundColor: "rgba(249,249,249,0.75)", backdropFilter: "blur(4px)" }}
+          >
+            <span
+              className="px-5 py-2 text-sm uppercase tracking-widest rounded-full"
+              style={{
+                border: "1px solid rgba(184,0,73,0.5)",
+                color: "#b80049",
+                fontFamily: "Inter, sans-serif",
+                fontSize: "11px",
+                letterSpacing: "0.12em",
+              }}
+            >
               Ver Detalle
             </span>
           </div>
@@ -69,8 +81,8 @@ export default async function ProductPreview({
         >
           {/* Title */}
           <h3
-            className="font-display text-sm font-semibold leading-tight"
-            style={{ color: "#1C1917" }}
+            className="obs-editorial font-serif font-semibold text-sm leading-tight"
+            style={{ color: "#1a1c1c" }}
             data-testid="product-title"
           >
             {product.title}
@@ -78,8 +90,8 @@ export default async function ProductPreview({
 
           {/* Model / Handle */}
           <p
-            className="mt-1 text-xs uppercase tracking-[0.1em]"
-            style={{ color: "#78716C" }}
+            className="obs-label-tag mt-1"
+            style={{ color: "rgba(128,80,98,0.55)" }}
           >
             {product.handle?.replace(/-/g, " ")}
           </p>
@@ -106,7 +118,7 @@ export default async function ProductPreview({
                 )}
                 <span
                   className="font-display text-base font-bold"
-                  style={{ color: hasDiscount ? "#E85A4F" : "#D4A853" }}
+                  style={{ color: hasDiscount ? "#e2165f" : "#b80049" }}
                   data-testid="price"
                 >
                   {cheapestPrice.calculated_price}

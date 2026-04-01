@@ -34,6 +34,7 @@ module.exports = {
           80: "#1F2937",
           90: "#111827",
         },
+        // Legacy dark palette (preserved)
         "obs-charcoal": "#1C1917",
         "obs-gold": "#D4A853",
         "obs-cream": "#FAF8F5",
@@ -42,6 +43,15 @@ module.exports = {
         "obs-stone": "#78716C",
         "obs-sand": "#F5F0EB",
         "obs-warm": "#57534E",
+        // Floral Denim Editorial palette
+        "obs-rose": "#b80049",
+        "obs-rose-bright": "#e2165f",
+        "obs-plum": "#805062",
+        "obs-surface": "#f9f9f9",
+        "obs-surface-low": "#f3f3f3",
+        "obs-surface-high": "#e8e8e8",
+        "obs-on-surface": "#1a1c1c",
+        "obs-outline": "#e4bdc2",
       },
       borderRadius: {
         none: "0px",
@@ -78,7 +88,8 @@ module.exports = {
           "sans-serif",
         ],
         display: ["var(--font-syne)", "Syne", "sans-serif"],
-        serif: ["var(--font-libre-baskerville)", "Libre Baskerville", "Georgia", "serif"],
+        serif: ["var(--font-noto-serif)", "Noto Serif", "var(--font-libre-baskerville)", "Libre Baskerville", "Georgia", "serif"],
+        editorial: ["var(--font-noto-serif)", "Noto Serif", "Georgia", "serif"],
       },
       keyframes: {
         ring: {
