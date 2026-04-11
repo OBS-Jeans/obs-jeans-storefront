@@ -487,3 +487,24 @@ html {
 .obs-soft-pulse {
   animation: soft-pulse 3s ease-in-out infinite;
 }
+
+/* Cinematic horizontal pan — Option C hero */
+@keyframes cinematic-pan {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(-30%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.obs-cinematic-pan {
+  animation: cinematic-pan 25s ease-in-out infinite;
+}
+
+.obs-cinematic-pan:hover {
+  animation-play-state: paused;
+}

@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
-import HeroClient from "@modules/home/components/hero/hero-client"
+import HeroOptionA from "@modules/home/components/hero/hero-option-a"
 import MarqueeBanner from "@modules/home/components/marquee-banner"
 import CategoryShowcase from "@modules/home/components/category-showcase"
 import TrustStrip from "@modules/home/components/trust-strip"
@@ -9,6 +9,7 @@ import FactoryStory from "@modules/home/components/factory-story"
 import NewsletterCta from "@modules/home/components/newsletter-cta"
 import BrandVideo from "@modules/home/components/brand-video"
 import CraftProcess from "@modules/home/components/craft-process"
+import ColorRange from "@modules/home/components/color-range"
 import ScrollProgress from "@modules/common/components/scroll-progress"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
@@ -37,11 +38,12 @@ export default async function Home(props: {
   return (
     <div style={{ backgroundColor: "#f9f9f9" }}>
       <ScrollProgress />
-      <HeroClient />
+      <HeroOptionA />
       <MarqueeBanner />
       <CategoryShowcase />
       <FeaturedProducts collections={collections} region={region} />
       <TrustStrip />
+      <ColorRange />
       <BrandVideo />
       <CraftProcess />
       <FactoryStory />
