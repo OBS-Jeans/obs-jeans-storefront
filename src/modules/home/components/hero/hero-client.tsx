@@ -12,9 +12,10 @@ export default function HeroClient() {
     offset: ["start start", "end start"],
   })
 
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.12])
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, -50])
-  const opacity = useTransform(scrollYProgress, [0, 0.65], [1, 0])
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.08])
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, 40])
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -60])
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
 
   return (
     <div
@@ -25,49 +26,71 @@ export default function HeroClient() {
       {/* Floral dot pattern */}
       <div className="absolute inset-0 obs-floral-pattern pointer-events-none z-[1]" />
 
-      {/* Subtle grain */}
+      {/* Subtle grain overlay */}
       <div
         className="absolute inset-0 pointer-events-none z-[2]"
         style={{
-          opacity: 0.01,
+          opacity: 0.012,
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
 
       {/* ════════════════ MOBILE ════════════════ */}
       <div className="small:hidden flex flex-col min-h-[100svh]">
-        {/* Mobile image */}
-        <div className="relative h-[55vh] overflow-hidden" style={{ backgroundColor: "#f3f3f3" }}>
+        {/* Mobile hero image — jeans spectrum */}
+        <div className="relative h-[48vh] overflow-hidden" style={{ backgroundColor: "#f5f5f5" }}>
           <motion.div className="absolute inset-0" style={{ scale: imageScale }}>
             <Image
-              src="/images/obs-model-hero.jpeg"
-              alt="OBS Jeans - Modelo"
+              src="/images/obs-lineup-spectrum.png"
+              alt="OBS Jeans - Gama completa de colores en mezclilla"
               fill
-              className="object-cover object-top"
+              className="object-cover"
+              style={{ objectPosition: "center 30%" }}
               priority
               sizes="100vw"
             />
           </motion.div>
 
-          {/* Gradient fade from image to light bg */}
+          {/* Bottom gradient fade to surface */}
           <div
-            className="absolute inset-x-0 bottom-0 h-40"
+            className="absolute inset-x-0 bottom-0 h-32"
             style={{ background: "linear-gradient(to top, #f9f9f9, transparent)" }}
           />
 
-          {/* Rose top-right accent */}
+          {/* Decorative corner lines — top left */}
           <motion.div
-            className="absolute top-6 right-6 w-12 h-12 rounded-full z-[3]"
-            style={{ backgroundColor: "rgba(184,0,73,0.15)" }}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          />
+            className="absolute top-5 left-5 w-10 h-10 z-[3]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+          >
+            <div className="absolute top-0 left-0 w-full h-[1px]" style={{ backgroundColor: "rgba(184,0,73,0.35)" }} />
+            <div className="absolute top-0 left-0 h-full w-[1px]" style={{ backgroundColor: "rgba(184,0,73,0.35)" }} />
+          </motion.div>
+
+          {/* Floating color count badge */}
+          <motion.div
+            className="obs-glass obs-ambient-shadow absolute bottom-12 right-5 z-[5] rounded-xl px-4 py-3"
+            style={{ border: "1px solid rgba(228,189,194,0.3)" }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.0 }}
+          >
+            <span className="obs-label-tag block" style={{ color: "#b80049" }}>
+              5 Tonos
+            </span>
+            <span
+              className="obs-editorial font-serif font-bold text-lg block mt-0.5"
+              style={{ color: "#1a1c1c" }}
+            >
+              Un Espectro
+            </span>
+          </motion.div>
         </div>
 
         {/* Mobile content */}
         <motion.div
-          className="flex-1 flex flex-col justify-center items-center text-center px-7 pb-20 pt-2 -mt-6 relative z-10"
+          className="flex-1 flex flex-col justify-center items-center text-center px-7 pb-20 pt-4 -mt-4 relative z-10"
           style={{ opacity }}
         >
           {/* Badge */}
@@ -82,10 +105,7 @@ export default function HeroClient() {
               style={{ border: "1px solid rgba(228,189,194,0.35)" }}
             >
               <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#b80049" }} />
-              <span
-                className="obs-label-tag"
-                style={{ color: "#805062" }}
-              >
+              <span className="obs-label-tag" style={{ color: "#805062" }}>
                 Fábrica de Jeans
               </span>
             </div>
@@ -93,22 +113,22 @@ export default function HeroClient() {
 
           {/* Heading */}
           <motion.h1
-            className="obs-editorial font-serif font-bold text-[3rem] leading-[1.0] tracking-[-0.02em]"
+            className="obs-editorial font-serif font-bold text-[2.8rem] leading-[1.0] tracking-[-0.02em]"
             style={{ color: "#1a1c1c" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
           >
-            Los Más
+            Cada Color
           </motion.h1>
           <motion.h1
-            className="obs-editorial font-serif italic font-light text-[3rem] leading-[1.0] tracking-[-0.02em]"
+            className="obs-editorial font-serif italic font-light text-[2.8rem] leading-[1.0] tracking-[-0.02em]"
             style={{ color: "#b80049" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25 }}
           >
-            Cómodos
+            Tu Estilo
           </motion.h1>
 
           {/* Rose accent line */}
@@ -116,7 +136,7 @@ export default function HeroClient() {
             className="my-4 h-px w-20"
             style={{
               background: "linear-gradient(90deg, transparent, #b80049, transparent)",
-              transformOrigin: "left",
+              transformOrigin: "center",
             }}
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{ scaleX: 1, opacity: 1 }}
@@ -124,7 +144,7 @@ export default function HeroClient() {
           />
 
           <motion.h1
-            className="obs-editorial font-serif font-bold text-[3rem] leading-[1.0] tracking-[-0.02em]"
+            className="obs-editorial font-serif font-bold text-[2.8rem] leading-[1.0] tracking-[-0.02em]"
             style={{ color: "#1a1c1c" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -133,7 +153,7 @@ export default function HeroClient() {
             Al Mejor
           </motion.h1>
           <motion.h1
-            className="obs-editorial font-serif font-bold text-[3rem] leading-[1.0] tracking-[-0.02em]"
+            className="obs-editorial font-serif font-bold text-[2.8rem] leading-[1.0] tracking-[-0.02em]"
             style={{ color: "#1a1c1c" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -149,11 +169,13 @@ export default function HeroClient() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.55 }}
           >
-            Hecho en Jalisco, México &middot; Tallas 1 a 25
+            Del negro profundo al blanco puro — encuentra tu tono perfecto.
+            <br />
+            Tallas inclusivas del 1 al 25.
           </motion.p>
 
           <motion.div
-            className="mt-8"
+            className="mt-8 flex flex-col items-center gap-3"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7 }}
@@ -190,7 +212,7 @@ export default function HeroClient() {
 
         {/* Left: Editorial content */}
         <motion.div
-          className="relative z-10 w-[48%] flex items-center pl-14 medium:pl-20 xl:pl-28"
+          className="relative z-10 w-[44%] flex items-center pl-14 medium:pl-20 xl:pl-28"
           style={{ y: contentY, opacity }}
         >
           <div className="relative max-w-lg">
@@ -217,28 +239,28 @@ export default function HeroClient() {
               </div>
             </motion.div>
 
-            {/* Editorial serif heading */}
+            {/* Editorial heading */}
             <div className="overflow-hidden">
               <motion.h1
                 className="obs-editorial font-serif font-bold leading-[1.0] tracking-[-0.02em]"
-                style={{ color: "#1a1c1c", fontSize: "clamp(3.5rem, 6.5vw, 6.5rem)" }}
+                style={{ color: "#1a1c1c", fontSize: "clamp(3.2rem, 5.8vw, 6rem)" }}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               >
-                Los Más
+                Cada Color
               </motion.h1>
             </div>
 
             <div className="overflow-hidden">
               <motion.h1
                 className="obs-editorial font-serif italic font-light leading-[1.0] tracking-[-0.02em]"
-                style={{ color: "#b80049", fontSize: "clamp(3.5rem, 6.5vw, 6.5rem)" }}
+                style={{ color: "#b80049", fontSize: "clamp(3.2rem, 5.8vw, 6rem)" }}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                Cómodos
+                Tu Estilo
               </motion.h1>
             </div>
 
@@ -257,7 +279,7 @@ export default function HeroClient() {
             <div className="overflow-hidden">
               <motion.h1
                 className="obs-editorial font-serif font-bold leading-[1.0] tracking-[-0.02em]"
-                style={{ color: "#1a1c1c", fontSize: "clamp(3.5rem, 6.5vw, 6.5rem)" }}
+                style={{ color: "#1a1c1c", fontSize: "clamp(3.2rem, 5.8vw, 6rem)" }}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
@@ -268,7 +290,7 @@ export default function HeroClient() {
             <div className="overflow-hidden">
               <motion.h1
                 className="obs-editorial font-serif font-bold leading-[1.0] tracking-[-0.02em]"
-                style={{ color: "#1a1c1c", fontSize: "clamp(3.5rem, 6.5vw, 6.5rem)" }}
+                style={{ color: "#1a1c1c", fontSize: "clamp(3.2rem, 5.8vw, 6rem)" }}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.58, ease: [0.16, 1, 0.3, 1] }}
@@ -279,13 +301,14 @@ export default function HeroClient() {
 
             {/* Subtitle */}
             <motion.p
-              className="text-sm leading-relaxed mt-7 max-w-xs"
+              className="text-sm leading-relaxed mt-7 max-w-sm"
               style={{ color: "#805062", fontFamily: "Inter, sans-serif" }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.75 }}
             >
-              Hecho en Jalisco, México &middot; Desde tallas 1 a 25
+              Del negro profundo al blanco puro — toda la gama del denim
+              en un solo lugar. Hechos en Jalisco, tallas del 1 al 25.
             </motion.p>
 
             {/* CTAs */}
@@ -297,7 +320,7 @@ export default function HeroClient() {
             >
               <LocalizedClientLink
                 href="/store"
-                className="inline-flex items-center gap-3 rounded-full text-white text-sm font-medium transition-opacity duration-300 hover:opacity-85"
+                className="inline-flex items-center gap-3 rounded-full text-white text-sm font-medium transition-all duration-300 hover:opacity-85 hover:shadow-xl"
                 style={{
                   padding: "14px 32px",
                   background: "linear-gradient(135deg, #b80049 0%, #e2165f 100%)",
@@ -323,7 +346,7 @@ export default function HeroClient() {
                   borderRadius: "9999px",
                 }}
               >
-                Categorías
+                Nuestra Historia
               </LocalizedClientLink>
             </motion.div>
 
@@ -356,39 +379,77 @@ export default function HeroClient() {
           </div>
         </motion.div>
 
-        {/* Right: Model image — editorial treatment */}
+        {/* Right: Jeans spectrum image — editorial treatment */}
         <div
-          className="relative w-[52%] overflow-hidden"
-          style={{ backgroundColor: "#f3f3f3" }}
+          className="relative w-[56%] overflow-hidden"
+          style={{ backgroundColor: "#f5f5f5" }}
         >
-          {/* Parallax model image */}
-          <motion.div className="absolute inset-0" style={{ scale: imageScale }}>
+          {/* Parallax jeans spectrum image */}
+          <motion.div
+            className="absolute inset-0"
+            style={{ scale: imageScale, y: imageY }}
+          >
             <Image
-              src="/images/obs-model-hero.jpeg"
-              alt="OBS Jeans - Mezclilla de alta calidad"
+              src="/images/obs-lineup-spectrum.png"
+              alt="OBS Jeans - Espectro completo de colores: negro, azul oscuro, azul medio, azul claro y blanco"
               fill
-              className="object-cover object-top"
+              className="object-cover"
+              style={{ objectPosition: "center 25%" }}
               priority
-              sizes="52vw"
+              sizes="56vw"
             />
           </motion.div>
 
-          {/* Left gradient blend — surface to transparent */}
+          {/* Left gradient blend into surface */}
           <div
-            className="absolute inset-y-0 left-0 w-48 z-[2]"
+            className="absolute inset-y-0 left-0 w-56 z-[2]"
             style={{ background: "linear-gradient(to right, #f9f9f9, transparent)" }}
           />
 
-          {/* Subtle overlay */}
-          <div className="absolute inset-0 bg-white/5 z-[1]" />
+          {/* Subtle warm overlay */}
+          <div
+            className="absolute inset-0 z-[1]"
+            style={{ backgroundColor: "rgba(249,249,249,0.03)" }}
+          />
 
-          {/* Floating glassmorphism badge — bottom left of image */}
+          {/* Rose radial glow — bottom right */}
+          <div
+            className="absolute -bottom-20 -right-20 w-80 h-80 z-[3] pointer-events-none"
+            style={{
+              background: "radial-gradient(circle, rgba(184,0,73,0.06) 0%, transparent 65%)",
+            }}
+          />
+
+          {/* Floating glassmorphism badge — "Colección 2025" */}
           <motion.div
-            className="obs-glass obs-ambient-shadow absolute bottom-16 left-10 z-[5] rounded-2xl px-6 py-5"
+            className="obs-glass obs-ambient-shadow absolute top-16 right-12 z-[5] rounded-2xl p-5 max-w-[200px]"
+            style={{ border: "1px solid rgba(228,189,194,0.25)" }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="obs-label-tag block" style={{ color: "#805062" }}>
+              Colección 2025
+            </span>
+            <p
+              className="obs-editorial font-serif font-bold text-xl mt-1.5 leading-tight"
+              style={{ color: "#1a1c1c" }}
+            >
+              Denim<br />Spectrum
+            </p>
+            <div
+              className="w-7 h-0.5 mt-3"
+              style={{ background: "linear-gradient(90deg, #b80049, #e2165f)" }}
+            />
+          </motion.div>
+
+          {/* Floating badge — inclusive sizes */}
+          <motion.div
+            className="obs-glass obs-ambient-shadow absolute bottom-16 left-14 z-[5] rounded-2xl px-6 py-5"
             style={{ border: "1px solid rgba(228,189,194,0.3)" }}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 1.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, delay: 1.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="obs-label-tag block" style={{ color: "#b80049" }}>
               Tallas Inclusivas
@@ -401,41 +462,39 @@ export default function HeroClient() {
             </span>
           </motion.div>
 
-          {/* Floating collection tag — top right */}
+          {/* Decorative color spectrum indicator — bottom right */}
           <motion.div
-            className="obs-glass obs-ambient-shadow absolute top-16 right-10 z-[5] rounded-2xl p-5 max-w-[200px]"
-            style={{ border: "1px solid rgba(228,189,194,0.25)" }}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute bottom-16 right-12 z-[5] flex gap-1.5 items-end"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.8 }}
           >
-            <span className="obs-label-tag block" style={{ color: "#805062" }}>
-              Colección 2025
-            </span>
-            <p
-              className="obs-editorial font-serif font-bold text-xl mt-1.5 leading-tight"
-              style={{ color: "#1a1c1c" }}
-            >
-              Floral<br />Denim
-            </p>
-            <div
-              className="w-7 h-0.5 mt-3"
-              style={{ background: "linear-gradient(90deg, #b80049, #e2165f)" }}
-            />
+            {["#1a1a1a", "#2d3748", "#4a6fa5", "#87afd4", "#e8e8e8"].map((color, i) => (
+              <motion.div
+                key={color}
+                className="rounded-full"
+                style={{
+                  backgroundColor: color,
+                  width: "8px",
+                  height: `${16 + i * 4}px`,
+                  border: color === "#e8e8e8" ? "1px solid rgba(0,0,0,0.1)" : "none",
+                }}
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                transition={{ duration: 0.4, delay: 1.9 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              />
+            ))}
           </motion.div>
         </div>
 
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-8 left-[24%] z-20 flex flex-col items-center gap-2"
+          className="absolute bottom-8 left-[22%] z-20 flex flex-col items-center gap-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.4, duration: 1 }}
         >
-          <span
-            className="obs-label-tag"
-            style={{ color: "rgba(128,80,98,0.45)" }}
-          >
+          <span className="obs-label-tag" style={{ color: "rgba(128,80,98,0.45)" }}>
             Scroll
           </span>
           <motion.div

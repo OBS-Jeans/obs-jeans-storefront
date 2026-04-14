@@ -2,19 +2,21 @@ import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
-import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import PaginatedProducts from "@modules/store/templates/paginated-products"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import CategoryFilterBar from "@modules/categories/components/category-filter-bar"
 import { HttpTypes } from "@medusajs/types"
 
 export default function CategoryTemplate({
   category,
+  parentWithChildren,
   sortBy,
   page,
   countryCode,
 }: {
   category: HttpTypes.StoreProductCategory
+  parentWithChildren?: HttpTypes.StoreProductCategory | null
   sortBy?: SortOptions
   page?: string
   countryCode: string
@@ -23,6 +25,14 @@ export default function CategoryTemplate({
   const sort = sortBy || "created_at"
 
   if (!category || !countryCode) notFound()
+
+  // Collect all category IDs (parent + children) so parent pages show all products
+  const allCategoryIds = [category.id]
+  if (category.category_children?.length) {
+    category.category_children.forEach((child) => {
+      allCategoryIds.push(child.id)
+    })
+  }
 
   const parents = [] as HttpTypes.StoreProductCategory[]
 
@@ -35,12 +45,20 @@ export default function CategoryTemplate({
 
   getParents(category)
 
+  // For subcategories: use the separately-fetched parent (with full children) for sibling chips
+  const isChild = !!category.parent_category
+  const resolvedParent = parentWithChildren || category.parent_category
+  const parentForChips = isChild && resolvedParent ? resolvedParent : category
+  const siblingChips = isChild && resolvedParent
+    ? resolvedParent.category_children || []
+    : category.category_children || []
+
   return (
     <div style={{ backgroundColor: "#f9f9f9", minHeight: "100vh" }}>
 
       {/* Editorial category header */}
       <div
-        className="relative overflow-hidden py-16 small:py-20"
+        className="relative overflow-hidden py-14 small:py-18"
         style={{ backgroundColor: "#f3f3f3" }}
       >
         {/* Floral dot pattern */}
@@ -58,7 +76,7 @@ export default function CategoryTemplate({
         <div className="content-container text-center relative z-10">
           {/* Breadcrumbs */}
           {parents.length > 0 && (
-            <div className="flex items-center justify-center gap-2 mb-5">
+            <div className="flex items-center justify-center gap-2 mb-4">
               {parents.reverse().map((parent) => (
                 <span
                   key={parent.id}
@@ -68,7 +86,6 @@ export default function CategoryTemplate({
                   <LocalizedClientLink
                     className="hover:text-obs-rose transition-colors duration-200"
                     href={`/categories/${parent.handle}`}
-                    data-testid="sort-by-link"
                   >
                     {parent.name}
                   </LocalizedClientLink>
@@ -79,14 +96,14 @@ export default function CategoryTemplate({
           )}
 
           <span
-            className="obs-label-tag inline-block mb-4"
+            className="obs-label-tag inline-block mb-3"
             style={{ color: "#b80049" }}
           >
             Categoría
           </span>
 
           <h1
-            className="obs-editorial font-serif font-bold text-4xl small:text-6xl"
+            className="obs-editorial font-serif font-bold text-4xl small:text-5xl"
             style={{ color: "#1a1c1c" }}
             data-testid="category-page-title"
           >
@@ -94,7 +111,7 @@ export default function CategoryTemplate({
           </h1>
 
           <div
-            className="mx-auto mt-5 h-px w-14"
+            className="mx-auto mt-4 h-px w-14"
             style={{
               background:
                 "linear-gradient(90deg, transparent, #b80049, transparent)",
@@ -103,7 +120,7 @@ export default function CategoryTemplate({
 
           {category.description && (
             <p
-              className="obs-editorial font-serif italic font-light text-base mt-5 max-w-xl mx-auto"
+              className="obs-editorial font-serif italic font-light text-base mt-4 max-w-xl mx-auto"
               style={{ color: "#805062" }}
             >
               {category.description}
@@ -112,51 +129,34 @@ export default function CategoryTemplate({
         </div>
       </div>
 
-      {/* Products area */}
-      <div
-        className="flex flex-col small:flex-row small:items-start py-10 content-container gap-8"
-        data-testid="category-container"
-      >
-        <RefinementList sortBy={sort} data-testid="sort-by-container" />
+      {/* Filter bar + Products — full width */}
+      <div className="content-container py-8" data-testid="category-container">
 
-        <div className="w-full">
-          {/* Subcategory chips */}
-          {category.category_children && category.category_children.length > 0 && (
-            <div className="mb-8 flex flex-wrap gap-2">
-              {category.category_children.map((c) => (
-                <LocalizedClientLink
-                  key={c.id}
-                  href={`/categories/${c.handle}`}
-                  className="inline-flex items-center text-xs rounded-full px-4 py-2 transition-all duration-200 hover:opacity-80"
-                  style={{
-                    color: "#805062",
-                    fontFamily: "Inter, sans-serif",
-                    backgroundColor: "white",
-                    border: "1px solid rgba(228,189,194,0.4)",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  {c.name}
-                </LocalizedClientLink>
-              ))}
-            </div>
-          )}
+        {/* Horizontal filter bar: subcategories + sort */}
+        <CategoryFilterBar
+          category={category}
+          parentCategory={parentForChips}
+          chips={siblingChips}
+          activeChildId={isChild ? category.id : undefined}
+          sortBy={sort}
+        />
 
-          <Suspense
-            fallback={
-              <SkeletonProductGrid
-                numberOfProducts={category.products?.length ?? 8}
-              />
-            }
-          >
-            <PaginatedProducts
-              sortBy={sort}
-              page={pageNumber}
-              categoryId={category.id}
-              countryCode={countryCode}
+        {/* Product grid — full width, no sidebar */}
+        <Suspense
+          fallback={
+            <SkeletonProductGrid
+              numberOfProducts={category.products?.length ?? 12}
             />
-          </Suspense>
-        </div>
+          }
+        >
+          <PaginatedProducts
+            sortBy={sort}
+            page={pageNumber}
+            categoryId={category.id}
+            categoryIds={allCategoryIds}
+            countryCode={countryCode}
+          />
+        </Suspense>
       </div>
     </div>
   )

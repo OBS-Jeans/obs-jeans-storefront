@@ -1,8 +1,8 @@
 import { Suspense } from "react"
 
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
-import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import CollectionSortBar from "@modules/collections/components/collection-sort-bar"
 
 import PaginatedProducts from "./paginated-products"
 
@@ -23,7 +23,7 @@ const StoreTemplate = ({
 
       {/* Editorial page header */}
       <div
-        className="relative overflow-hidden py-16 small:py-20"
+        className="relative overflow-hidden py-14 small:py-18"
         style={{ backgroundColor: "#f3f3f3" }}
       >
         {/* Floral dot pattern */}
@@ -40,13 +40,13 @@ const StoreTemplate = ({
 
         <div className="content-container text-center relative z-10">
           <span
-            className="obs-label-tag inline-block mb-4"
+            className="obs-label-tag inline-block mb-3"
             style={{ color: "#b80049" }}
           >
             OBS Jeans
           </span>
           <h1
-            className="obs-editorial font-serif font-bold text-4xl small:text-6xl"
+            className="obs-editorial font-serif font-bold text-4xl small:text-5xl"
             style={{ color: "#1a1c1c" }}
             data-testid="store-page-title"
           >
@@ -56,7 +56,7 @@ const StoreTemplate = ({
             </em>
           </h1>
           <div
-            className="mx-auto mt-5 h-px w-14"
+            className="mx-auto mt-4 h-px w-14"
             style={{
               background:
                 "linear-gradient(90deg, transparent, #b80049, transparent)",
@@ -65,12 +65,9 @@ const StoreTemplate = ({
         </div>
       </div>
 
-      {/* Products area */}
-      <div
-        className="flex flex-col small:flex-row small:items-start py-10 content-container gap-8"
-        data-testid="category-container"
-      >
-        <RefinementList sortBy={sort} />
+      {/* Sort bar + Products — full width */}
+      <div className="content-container py-8" data-testid="category-container">
+        <CollectionSortBar sortBy={sort} />
         <div className="w-full">
           <Suspense fallback={<SkeletonProductGrid />}>
             <PaginatedProducts
