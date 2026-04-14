@@ -74,9 +74,19 @@ export default async function CategoryPage(props: Props) {
     notFound()
   }
 
+  // If this is a child category, fetch the parent with its children (siblings)
+  // because Medusa doesn't support deep nested relation expansion
+  let parentWithChildren = null
+  if (productCategory.parent_category) {
+    parentWithChildren = await getCategoryByHandle([
+      productCategory.parent_category.handle,
+    ])
+  }
+
   return (
     <CategoryTemplate
       category={productCategory}
+      parentWithChildren={parentWithChildren}
       sortBy={sortBy}
       page={page}
       countryCode={params.countryCode}

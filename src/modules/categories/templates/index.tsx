@@ -10,11 +10,13 @@ import { HttpTypes } from "@medusajs/types"
 
 export default function CategoryTemplate({
   category,
+  parentWithChildren,
   sortBy,
   page,
   countryCode,
 }: {
   category: HttpTypes.StoreProductCategory
+  parentWithChildren?: HttpTypes.StoreProductCategory | null
   sortBy?: SortOptions
   page?: string
   countryCode: string
@@ -43,11 +45,12 @@ export default function CategoryTemplate({
 
   getParents(category)
 
-  // For subcategories: resolve the parent and its children (siblings) for the filter bar
+  // For subcategories: use the separately-fetched parent (with full children) for sibling chips
   const isChild = !!category.parent_category
-  const parentForChips = isChild ? category.parent_category! : category
-  const siblingChips = isChild
-    ? category.parent_category?.category_children || []
+  const resolvedParent = parentWithChildren || category.parent_category
+  const parentForChips = isChild && resolvedParent ? resolvedParent : category
+  const siblingChips = isChild && resolvedParent
+    ? resolvedParent.category_children || []
     : category.category_children || []
 
   return (
