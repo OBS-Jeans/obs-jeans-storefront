@@ -9,6 +9,17 @@ export default async function FeaturedProducts({
   collections: HttpTypes.StoreCollection[]
   region: HttpTypes.StoreRegion
 }) {
+  // Show the "Destacados" collection curated from Medusa Admin.
+  // Fallback to "Moda" (seasonal), then first collection if neither exists.
+  const featuredCollection =
+    collections.find((c) => c.handle === "destacados") ||
+    collections.find((c) => c.handle === "moda") ||
+    collections[0]
+
+  if (!featuredCollection) {
+    return null
+  }
+
   return (
     <>
       {/* Featured Products Section */}
@@ -25,14 +36,20 @@ export default async function FeaturedProducts({
             className="obs-editorial font-serif font-bold text-[2.4rem] md:text-5xl leading-tight"
             style={{ color: "#1a1c1c" }}
           >
-            Nuestra{" "}
+            Tendencia de{" "}
             <em
               className="italic font-light"
               style={{ color: "#b80049" }}
             >
-              Colección
+              Temporada
             </em>
           </h2>
+          <p
+            className="mt-4 text-sm max-w-md mx-auto"
+            style={{ color: "#805062", fontFamily: "Inter, sans-serif" }}
+          >
+            Los modelos más nuevos directo de nuestra fábrica en Jalisco
+          </p>
           <div
             className="mx-auto mt-5 h-px w-16"
             style={{
@@ -41,12 +58,8 @@ export default async function FeaturedProducts({
           />
         </ScrollReveal>
 
-        {/* Product Rails */}
-        {collections.map((collection) => (
-          <li key={collection.id} className="list-none">
-            <ProductRail collection={collection} region={region} />
-          </li>
-        ))}
+        {/* Single featured collection rail — limited to 8 products */}
+        <ProductRail collection={featuredCollection} region={region} limit={8} />
       </section>
 
       {/* Brand Story Band */}
