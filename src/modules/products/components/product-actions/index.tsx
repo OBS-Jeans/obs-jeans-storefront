@@ -151,6 +151,7 @@ export default function ProductActions({
                       title={option.title ?? ""}
                       data-testid="product-options"
                       disabled={!!disabled || isAdding}
+                      variants={product.variants}
                     />
                   </div>
                 )
@@ -177,9 +178,9 @@ export default function ProductActions({
           isLoading={isAdding}
           data-testid="add-product-button"
         >
-          {!selectedVariant && !options
-            ? "Seleccionar talla"
-            : !inStock || !isValidVariant
+          {!selectedVariant || !isValidVariant
+            ? "Seleccione una talla"
+            : !inStock
             ? "Agotado"
             : "Agregar al carrito"}
         </Button>
