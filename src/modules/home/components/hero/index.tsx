@@ -39,7 +39,7 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Main editorial heading — Noto Serif */}
+        {/* Main editorial heading — Libre Baskerville */}
         <div className="overflow-hidden">
           <h1
             className="obs-hero-enter obs-hero-enter-2 obs-editorial font-serif font-bold text-[clamp(3.2rem,8vw,7rem)] xl:text-[7.5rem]"
