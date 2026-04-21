@@ -12,6 +12,7 @@ type Props = {
   searchParams: Promise<{
     sortBy?: SortOptions
     page?: string
+    [key: string]: string | undefined
   }>
 }
 
@@ -66,7 +67,15 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function CategoryPage(props: Props) {
   const searchParams = await props.searchParams
   const params = await props.params
-  const { sortBy, page } = searchParams
+  const { sortBy, page, ...filterParams } = searchParams
+
+  // Parse filter params (e.g., talla=28,30 → { talla: ["28", "30"] })
+  const filters: Record<string, string[]> = {}
+  for (const [key, value] of Object.entries(filterParams)) {
+    if (value && key !== "sortBy" && key !== "page") {
+      filters[key] = value.split(",")
+    }
+  }
 
   const productCategory = await getCategoryByHandle(params.category)
 
@@ -90,6 +99,7 @@ export default async function CategoryPage(props: Props) {
       sortBy={sortBy}
       page={page}
       countryCode={params.countryCode}
+      filters={filters}
     />
   )
 }

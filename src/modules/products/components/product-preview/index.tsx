@@ -1,5 +1,4 @@
 import { Text } from "@medusajs/ui"
-import { listProducts } from "@lib/data/products"
 import { getProductPrice } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -15,26 +14,31 @@ export default async function ProductPreview({
   isFeatured?: boolean
   region: HttpTypes.StoreRegion
 }) {
-  // const pricedProduct = await listProducts({
-  //   regionId: region.id,
-  //   queryParams: { id: [product.id!] },
-  // }).then(({ response }) => response.products[0])
-
-  // if (!pricedProduct) {
-  //   return null
-  // }
-
   const { cheapestPrice } = getProductPrice({
     product,
   })
 
   const hasDiscount = cheapestPrice?.price_type === "sale"
 
+  // Stock calculation
+  const variants = product.variants || []
+  const managedVariants = variants.filter((v: any) => v.manage_inventory && !v.allow_backorder)
+  const totalInventory = managedVariants.reduce(
+    (sum: number, v: any) => sum + (v.inventory_quantity || 0),
+    0
+  )
+  const isOutOfStock = managedVariants.length > 0 && totalInventory === 0
+  const isLowStock = !isOutOfStock && managedVariants.length > 0 && totalInventory > 0 && totalInventory <= 5
+  const inStockVariantCount = variants.filter((v: any) => {
+    if (!v.manage_inventory || v.allow_backorder) return true
+    return (v.inventory_quantity || 0) > 0
+  }).length
+
   return (
     <LocalizedClientLink href={`/products/${product.handle}`} className="group">
       <div
         data-testid="product-wrapper"
-        className="obs-product-card transition-all duration-300 ease-out group-hover:scale-[1.02]"
+        className={`obs-product-card transition-all duration-300 ease-out group-hover:scale-[1.02] ${isOutOfStock ? "opacity-60" : ""}`}
       >
         {/* Image Container */}
         <div
@@ -46,15 +50,29 @@ export default async function ProductPreview({
             size="full"
             isFeatured={isFeatured}
           />
-          {/* Sale Badge */}
-          {hasDiscount && (
+          {/* Badges */}
+          {isOutOfStock ? (
+            <div
+              className="absolute top-3 left-3 px-3 py-1 text-xs font-display font-semibold uppercase tracking-wider text-white rounded-sm"
+              style={{ backgroundColor: "#78716C" }}
+            >
+              Agotado
+            </div>
+          ) : isLowStock ? (
+            <div
+              className="absolute top-3 left-3 px-3 py-1 text-xs font-display font-semibold uppercase tracking-wider text-white rounded-sm"
+              style={{ backgroundColor: "#D97706" }}
+            >
+              Últimas piezas
+            </div>
+          ) : hasDiscount ? (
             <div
               className="absolute top-3 left-3 px-3 py-1 text-xs font-display font-semibold uppercase tracking-wider text-white rounded-sm"
               style={{ backgroundColor: "#E85A4F" }}
             >
               Oferta
             </div>
-          )}
+          ) : null}
           {/* Quick view overlay */}
           <div
             className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -97,9 +115,11 @@ export default async function ProductPreview({
           </p>
 
           {/* Variant count */}
-          {product.variants && product.variants.length > 0 && (
+          {variants.length > 0 && (
             <p className="mt-1 text-xs text-obs-stone/70">
-              {product.variants.length} tallas disponibles
+              {isOutOfStock
+                ? "Sin stock"
+                : `${inStockVariantCount} talla${inStockVariantCount !== 1 ? "s" : ""} disponible${inStockVariantCount !== 1 ? "s" : ""}`}
             </p>
           )}
 

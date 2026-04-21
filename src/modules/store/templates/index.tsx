@@ -10,10 +10,12 @@ const StoreTemplate = ({
   sortBy,
   page,
   countryCode,
+  filters,
 }: {
   sortBy?: SortOptions
   page?: string
   countryCode: string
+  filters?: Record<string, string[]>
 }) => {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
@@ -74,6 +76,7 @@ const StoreTemplate = ({
               sortBy={sort}
               page={pageNumber}
               countryCode={countryCode}
+              filters={filters}
             />
           </Suspense>
         </div>
