@@ -1,6 +1,6 @@
 "use client"
 
-import { isManual, isStripeLike } from "@lib/constants"
+import { isManual, isOxxo, isStripeLike } from "@lib/constants"
 import { placeOrder } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 import { Button } from "@medusajs/ui"
@@ -30,6 +30,14 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
     case isStripeLike(paymentSession?.provider_id):
       return (
         <StripePaymentButton
+          notReady={notReady}
+          cart={cart}
+          data-testid={dataTestId}
+        />
+      )
+    case isOxxo(paymentSession?.provider_id):
+      return (
+        <OxxoPaymentButton
           notReady={notReady}
           cart={cart}
           data-testid={dataTestId}
@@ -146,6 +154,97 @@ const StripePaymentButton = ({
       <ErrorMessage
         error={errorMessage}
         data-testid="stripe-payment-error-message"
+      />
+    </>
+  )
+}
+
+const OxxoPaymentButton = ({
+  cart,
+  notReady,
+  "data-testid": dataTestId,
+}: {
+  cart: HttpTypes.StoreCart
+  notReady: boolean
+  "data-testid"?: string
+}) => {
+  const [submitting, setSubmitting] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  const stripe = useStripe()
+
+  const session = cart.payment_collection?.payment_sessions?.find(
+    (s) => s.status === "pending"
+  )
+
+  const disabled = !stripe
+
+  const onPaymentCompleted = async () => {
+    await placeOrder()
+      .catch((err) => {
+        setErrorMessage(err.message)
+      })
+      .finally(() => {
+        setSubmitting(false)
+      })
+  }
+
+  const handlePayment = async () => {
+    setSubmitting(true)
+
+    if (!stripe || !cart) {
+      setSubmitting(false)
+      return
+    }
+
+    const billingName =
+      (cart.billing_address?.first_name ?? "") +
+      " " +
+      (cart.billing_address?.last_name ?? "")
+
+    await stripe
+      .confirmOxxoPayment(session?.data.client_secret as string, {
+        payment_method: {
+          billing_details: {
+            name: billingName.trim(),
+            email: cart.email,
+          },
+        },
+      })
+      .then(({ error, paymentIntent }) => {
+        if (error) {
+          setErrorMessage(error.message || null)
+          setSubmitting(false)
+          return
+        }
+
+        if (
+          paymentIntent &&
+          (paymentIntent.status === "requires_action" ||
+            paymentIntent.status === "requires_capture" ||
+            paymentIntent.status === "succeeded")
+        ) {
+          return onPaymentCompleted()
+        }
+
+        setSubmitting(false)
+      })
+  }
+
+  return (
+    <>
+      <Button
+        disabled={disabled || notReady}
+        onClick={handlePayment}
+        size="large"
+        isLoading={submitting}
+        data-testid={dataTestId}
+      >
+        Generar voucher OXXO
+      </Button>
+      <ErrorMessage
+        error={errorMessage}
+        data-testid="oxxo-payment-error-message"
       />
     </>
   )
