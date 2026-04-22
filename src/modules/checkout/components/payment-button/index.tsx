@@ -170,6 +170,7 @@ const OxxoPaymentButton = ({
 }) => {
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [voucherGenerated, setVoucherGenerated] = useState(false)
 
   const stripe = useStripe()
 
@@ -178,16 +179,6 @@ const OxxoPaymentButton = ({
   )
 
   const disabled = !stripe
-
-  const onPaymentCompleted = async () => {
-    await placeOrder()
-      .catch((err) => {
-        setErrorMessage(err.message)
-      })
-      .finally(() => {
-        setSubmitting(false)
-      })
-  }
 
   const handlePayment = async () => {
     setSubmitting(true)
@@ -218,17 +209,49 @@ const OxxoPaymentButton = ({
           return
         }
 
+        if (paymentIntent?.status === "requires_action") {
+          // OXXO voucher was generated. The order will be created
+          // automatically when the customer pays at OXXO and the
+          // webhook payment_intent.succeeded fires.
+          setVoucherGenerated(true)
+          setSubmitting(false)
+          return
+        }
+
         if (
           paymentIntent &&
-          (paymentIntent.status === "requires_action" ||
-            paymentIntent.status === "requires_capture" ||
+          (paymentIntent.status === "requires_capture" ||
             paymentIntent.status === "succeeded")
         ) {
-          return onPaymentCompleted()
+          placeOrder()
+            .catch((err) => {
+              setErrorMessage(err.message)
+            })
+            .finally(() => {
+              setSubmitting(false)
+            })
+          return
         }
 
         setSubmitting(false)
       })
+  }
+
+  if (voucherGenerated) {
+    return (
+      <div className="flex flex-col gap-y-2">
+        <div className="p-4 bg-ui-bg-subtle rounded-md border border-ui-border-base">
+          <p className="txt-medium-plus text-ui-fg-base mb-1">
+            Voucher OXXO generado
+          </p>
+          <p className="txt-small text-ui-fg-subtle">
+            Tu voucher fue generado exitosamente. Tienes 3 dias para pagar en
+            cualquier tienda OXXO. Tu pedido se confirmara automaticamente una
+            vez que realices el pago.
+          </p>
+        </div>
+      </div>
+    )
   }
 
   return (
