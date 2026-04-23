@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,300;1,400;1,600&display=swap');
-
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -130,6 +128,7 @@
   --obs-warm: #57534E;
   --font-display: var(--font-syne), sans-serif;
   --font-serif: var(--font-libre-baskerville), Georgia, serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
 
   /* Floral Denim Editorial */
   --obs-rose: #b80049;
@@ -140,7 +139,6 @@
   --obs-surface-high: #e8e8e8;
   --obs-on-surface: #1a1c1c;
   --obs-outline: #e4bdc2;
-  --font-editorial: "Noto Serif", var(--font-noto-serif), Georgia, serif;
 }
 
 /* Smooth scroll */
@@ -389,16 +387,16 @@ html {
   box-shadow: 0 40px 80px rgba(128, 80, 98, 0.08);
 }
 
-/* Editorial heading — Noto Serif, tight tracking */
+/* Editorial heading — Libre Baskerville, tight tracking */
 .obs-editorial {
-  font-family: "Noto Serif", Georgia, serif;
+  font-family: var(--font-serif);
   letter-spacing: -0.02em;
   line-height: 1.08;
 }
 
 /* Label tag — category style */
 .obs-label-tag {
-  font-family: Inter, sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;

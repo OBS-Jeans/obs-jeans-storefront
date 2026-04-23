@@ -1,6 +1,6 @@
 import { getBaseURL } from "@lib/util/env"
 import { Metadata } from "next"
-import { Syne, Libre_Baskerville } from "next/font/google"
+import { Syne, Libre_Baskerville, Inter } from "next/font/google"
 import "styles/globals.css"
 
 const syne = Syne({
@@ -18,6 +18,13 @@ const libreBaskerville = Libre_Baskerville({
   display: "swap",
 })
 
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
   title: "OBS Jeans | Los Más Cómodos Al Mejor Precio",
@@ -30,7 +37,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     <html
       lang="es"
       data-mode="light"
-      className={`${syne.variable} ${libreBaskerville.variable}`}
+      className={`${syne.variable} ${libreBaskerville.variable} ${inter.variable}`}
     >
       <body>
         <main className="relative">{props.children}</main>

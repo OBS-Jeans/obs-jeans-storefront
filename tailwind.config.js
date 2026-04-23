@@ -78,6 +78,7 @@ module.exports = {
       },
       fontFamily: {
         sans: [
+          "var(--font-inter)",
           "Inter",
           "-apple-system",
           "BlinkMacSystemFont",
@@ -88,8 +89,7 @@ module.exports = {
           "sans-serif",
         ],
         display: ["var(--font-syne)", "Syne", "sans-serif"],
-        serif: ["var(--font-noto-serif)", "Noto Serif", "var(--font-libre-baskerville)", "Libre Baskerville", "Georgia", "serif"],
-        editorial: ["var(--font-noto-serif)", "Noto Serif", "Georgia", "serif"],
+        serif: ["var(--font-libre-baskerville)", "Libre Baskerville", "Georgia", "serif"],
       },
       keyframes: {
         ring: {

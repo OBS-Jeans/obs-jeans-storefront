@@ -14,7 +14,7 @@ const MarqueeContent = () => (
       <span key={i} className="flex items-center gap-8 shrink-0">
         <span
           className="font-serif italic text-sm"
-          style={{ color: "#1a1c1c", fontFamily: '"Noto Serif", Georgia, serif' }}
+          style={{ color: "#1a1c1c" }}
         >
           {item}
         </span>
