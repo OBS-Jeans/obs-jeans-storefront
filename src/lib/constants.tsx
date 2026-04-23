@@ -18,6 +18,10 @@ export const paymentInfoMap: Record<
     title: "Tarjeta de crédito",
     icon: <CreditCard />,
   },
+  "pp_stripe-oxxo_stripe": {
+    title: "Pago en OXXO",
+    icon: <CreditCard />,
+  },
   "pp_stripe-ideal_stripe": {
     title: "iDeal",
     icon: <Ideal />,
@@ -42,6 +46,10 @@ export const isStripeLike = (providerId?: string) => {
   return (
     providerId?.startsWith("pp_stripe_") || providerId?.startsWith("pp_medusa-")
   )
+}
+
+export const isOxxo = (providerId?: string) => {
+  return providerId === "pp_stripe-oxxo_stripe"
 }
 
 export const isPaypal = (providerId?: string) => {

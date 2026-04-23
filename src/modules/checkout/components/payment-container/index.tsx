@@ -127,3 +127,32 @@ export const StripeCardContainer = ({
     </PaymentContainer>
   )
 }
+
+export const OxxoContainer = ({
+  paymentProviderId,
+  selectedPaymentOptionId,
+  paymentInfoMap,
+  disabled = false,
+}: Omit<PaymentContainerProps, "children">) => {
+  return (
+    <PaymentContainer
+      paymentProviderId={paymentProviderId}
+      selectedPaymentOptionId={selectedPaymentOptionId}
+      paymentInfoMap={paymentInfoMap}
+      disabled={disabled}
+    >
+      {selectedPaymentOptionId === paymentProviderId && (
+        <div className="my-4 p-4 bg-ui-bg-subtle rounded-md transition-all duration-150 ease-in-out">
+          <Text className="txt-medium text-ui-fg-base">
+            Al confirmar tu pedido, se generara un voucher con un numero de
+            referencia para pagar en cualquier tienda OXXO.
+          </Text>
+          <Text className="txt-small text-ui-fg-subtle mt-2">
+            Tendras 3 dias para completar el pago. Tu pedido se confirmara
+            automaticamente una vez que realices el pago.
+          </Text>
+        </div>
+      )}
+    </PaymentContainer>
+  )
+}
