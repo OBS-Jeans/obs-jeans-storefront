@@ -14,12 +14,14 @@ export default function CategoryTemplate({
   sortBy,
   page,
   countryCode,
+  filters,
 }: {
   category: HttpTypes.StoreProductCategory
   parentWithChildren?: HttpTypes.StoreProductCategory | null
   sortBy?: SortOptions
   page?: string
   countryCode: string
+  filters?: Record<string, string[]>
 }) {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
@@ -155,6 +157,7 @@ export default function CategoryTemplate({
             categoryId={category.id}
             categoryIds={allCategoryIds}
             countryCode={countryCode}
+            filters={filters}
           />
         </Suspense>
       </div>
