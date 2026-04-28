@@ -2,6 +2,7 @@
 
 import { isManual, isOxxo, isStripeLike } from "@lib/constants"
 import { placeOrder } from "@lib/data/cart"
+import { sendOxxoVoucherEmail } from "@lib/data/payment"
 import { HttpTypes } from "@medusajs/types"
 import { Button } from "@medusajs/ui"
 import { useElements, useStripe } from "@stripe/react-stripe-js"
@@ -215,6 +216,22 @@ const OxxoPaymentButton = ({
           // webhook payment_intent.succeeded fires.
           setVoucherGenerated(true)
           setSubmitting(false)
+
+          // Send voucher details by email (fire and forget)
+          const oxxoDetails = paymentIntent.next_action?.oxxo_display_details
+          if (oxxoDetails && cart.email) {
+            const cartTotal = cart.total || 0
+            sendOxxoVoucherEmail({
+              email: cart.email,
+              voucher_number: oxxoDetails.number || "",
+              voucher_url: oxxoDetails.hosted_voucher_url || "",
+              expires_at: oxxoDetails.expires_after
+                ? new Date(oxxoDetails.expires_after * 1000).toISOString()
+                : "",
+              order_total: cartTotal,
+              currency_code: cart.currency_code || "mxn",
+            })
+          }
           return
         }
 
