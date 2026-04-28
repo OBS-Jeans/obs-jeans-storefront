@@ -17,10 +17,10 @@ const stripeKey =
 
 const medusaAccountId = process.env.NEXT_PUBLIC_MEDUSA_PAYMENTS_ACCOUNT_ID
 const stripePromise = stripeKey
-  ? loadStripe(
-      stripeKey,
-      medusaAccountId ? { stripeAccount: medusaAccountId } : undefined
-    )
+  ? loadStripe(stripeKey, {
+      locale: "es",
+      ...(medusaAccountId ? { stripeAccount: medusaAccountId } : {}),
+    })
   : null
 
 const needsStripe = (providerId?: string) =>
