@@ -2,7 +2,7 @@
 
 import { isManual, isOxxo, isStripeLike } from "@lib/constants"
 import { placeOrder } from "@lib/data/cart"
-import { sendOxxoVoucherEmail } from "@lib/data/payment"
+import { sendOxxoVoucherEmail, setOxxoLocale } from "@lib/data/payment"
 import { HttpTypes } from "@medusajs/types"
 import { Button } from "@medusajs/ui"
 import { useElements, useStripe } from "@stripe/react-stripe-js"
@@ -193,6 +193,12 @@ const OxxoPaymentButton = ({
       (cart.billing_address?.first_name ?? "") +
       " " +
       (cart.billing_address?.last_name ?? "")
+
+    // Set Spanish locale on the PaymentIntent before confirming
+    const intentId = session?.data?.id as string
+    if (intentId) {
+      await setOxxoLocale(intentId)
+    }
 
     await stripe
       .confirmOxxoPayment(session?.data.client_secret as string, {
