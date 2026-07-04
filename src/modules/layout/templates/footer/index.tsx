@@ -185,6 +185,7 @@ export default async function Footer() {
             <ul className="grid grid-cols-1 gap-2.5 text-sm">
               {[
                 { href: "/about", label: "Nuestra Historia" },
+                { href: "/contacto", label: "Contacto" },
                 { href: "/tallas-inclusivas", label: "Tallas Inclusivas" },
                 { href: "/mayoreo", label: "Mayoreo" },
               ].map((link) => (
@@ -293,25 +294,44 @@ export default async function Footer() {
       {/* Bottom Bar */}
       <div className="content-container">
         <div style={{ height: "1px", backgroundColor: "rgba(228,189,194,0.25)" }} />
-        <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <Text
-            className="text-xs"
-            style={{ color: "rgba(128,80,98,0.55)", fontFamily: "Inter, sans-serif" }}
-          >
-            &copy; {new Date().getFullYear()} OBS Jeans SA de CV &middot; Hecho en
-            Jalisco, México
-          </Text>
-          <div className="flex items-center gap-1">
-            <div
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: "#b80049" }}
-            />
-            <span
+        <div className="py-6 flex flex-col gap-4">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+            {[
+              { href: "/politica-envios", label: "Política de Envíos" },
+              { href: "/politica-devoluciones", label: "Devoluciones" },
+              { href: "/terminos-condiciones", label: "Términos y Condiciones" },
+              { href: "/aviso-privacidad", label: "Aviso de Privacidad" },
+            ].map((link) => (
+              <LocalizedClientLink
+                key={link.href}
+                href={link.href}
+                className="text-xs transition-colors duration-200 hover:text-obs-rose"
+                style={{ color: "rgba(128,80,98,0.55)", fontFamily: "Inter, sans-serif" }}
+              >
+                {link.label}
+              </LocalizedClientLink>
+            ))}
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+            <Text
               className="text-xs"
-              style={{ color: "rgba(128,80,98,0.45)", fontFamily: "Inter, sans-serif" }}
+              style={{ color: "rgba(128,80,98,0.55)", fontFamily: "Inter, sans-serif" }}
             >
-              Diseñado con amor
-            </span>
+              &copy; {new Date().getFullYear()} OBS Jeans SA de CV &middot; Hecho en
+              Jalisco, México
+            </Text>
+            <div className="flex items-center gap-1">
+              <div
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ backgroundColor: "#b80049" }}
+              />
+              <span
+                className="text-xs"
+                style={{ color: "rgba(128,80,98,0.45)", fontFamily: "Inter, sans-serif" }}
+              >
+                Diseñado con amor
+              </span>
+            </div>
           </div>
         </div>
       </div>
