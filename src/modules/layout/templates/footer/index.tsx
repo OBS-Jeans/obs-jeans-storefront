@@ -320,18 +320,43 @@ export default async function Footer() {
               &copy; {new Date().getFullYear()} OBS Jeans SA de CV &middot; Hecho en
               Jalisco, México
             </Text>
-            <div className="flex items-center gap-1">
-              <div
-                className="w-1.5 h-1.5 rounded-full"
-                style={{ backgroundColor: "#b80049" }}
-              />
+            <a
+              href="https://graterol.dev"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 group transition-opacity duration-300 hover:opacity-80"
+              aria-label="Desarrollado por Graterol Dev"
+            >
               <span
-                className="text-xs"
+                className="text-[10px] uppercase tracking-[0.08em]"
                 style={{ color: "rgba(128,80,98,0.45)", fontFamily: "Inter, sans-serif" }}
               >
-                Diseñado con amor
+                Desarrollado por
               </span>
-            </div>
+              <span
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-[0.06em] transition-all duration-300 group-hover:shadow-md"
+                style={{
+                  background: "linear-gradient(135deg, #1a1c1c 0%, #2d2d2d 100%)",
+                  color: "#ffffff",
+                  fontFamily: "Inter, sans-serif",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                }}
+              >
+                <svg
+                  className="w-3 h-3"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="16 18 22 12 16 6" />
+                  <polyline points="8 6 2 12 8 18" />
+                </svg>
+                Graterol Dev
+              </span>
+            </a>
           </div>
         </div>
       </div>
