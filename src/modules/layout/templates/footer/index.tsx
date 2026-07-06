@@ -185,6 +185,7 @@ export default async function Footer() {
             <ul className="grid grid-cols-1 gap-2.5 text-sm">
               {[
                 { href: "/about", label: "Nuestra Historia" },
+                { href: "/contacto", label: "Contacto" },
                 { href: "/tallas-inclusivas", label: "Tallas Inclusivas" },
                 { href: "/mayoreo", label: "Mayoreo" },
               ].map((link) => (
@@ -293,25 +294,69 @@ export default async function Footer() {
       {/* Bottom Bar */}
       <div className="content-container">
         <div style={{ height: "1px", backgroundColor: "rgba(228,189,194,0.25)" }} />
-        <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <Text
-            className="text-xs"
-            style={{ color: "rgba(128,80,98,0.55)", fontFamily: "Inter, sans-serif" }}
-          >
-            &copy; {new Date().getFullYear()} OBS Jeans SA de CV &middot; Hecho en
-            Jalisco, México
-          </Text>
-          <div className="flex items-center gap-1">
-            <div
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: "#b80049" }}
-            />
-            <span
+        <div className="py-6 flex flex-col gap-4">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+            {[
+              { href: "/politica-envios", label: "Política de Envíos" },
+              { href: "/politica-devoluciones", label: "Devoluciones" },
+              { href: "/terminos-condiciones", label: "Términos y Condiciones" },
+              { href: "/aviso-privacidad", label: "Aviso de Privacidad" },
+            ].map((link) => (
+              <LocalizedClientLink
+                key={link.href}
+                href={link.href}
+                className="text-xs transition-colors duration-200 hover:text-obs-rose"
+                style={{ color: "rgba(128,80,98,0.55)", fontFamily: "Inter, sans-serif" }}
+              >
+                {link.label}
+              </LocalizedClientLink>
+            ))}
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+            <Text
               className="text-xs"
-              style={{ color: "rgba(128,80,98,0.45)", fontFamily: "Inter, sans-serif" }}
+              style={{ color: "rgba(128,80,98,0.55)", fontFamily: "Inter, sans-serif" }}
             >
-              Diseñado con amor
-            </span>
+              &copy; {new Date().getFullYear()} OBS Jeans SA de CV &middot; Hecho en
+              Jalisco, México
+            </Text>
+            <a
+              href="https://graterol.dev"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 group transition-opacity duration-300 hover:opacity-80"
+              aria-label="Desarrollado por Graterol Dev"
+            >
+              <span
+                className="text-[10px] uppercase tracking-[0.08em]"
+                style={{ color: "rgba(128,80,98,0.45)", fontFamily: "Inter, sans-serif" }}
+              >
+                Desarrollado por
+              </span>
+              <span
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-[0.06em] transition-all duration-300 group-hover:shadow-md"
+                style={{
+                  background: "linear-gradient(135deg, #1a1c1c 0%, #2d2d2d 100%)",
+                  color: "#ffffff",
+                  fontFamily: "Inter, sans-serif",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                }}
+              >
+                <svg
+                  className="w-3 h-3"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="16 18 22 12 16 6" />
+                  <polyline points="8 6 2 12 8 18" />
+                </svg>
+                Graterol Dev
+              </span>
+            </a>
           </div>
         </div>
       </div>
