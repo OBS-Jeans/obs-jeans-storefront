@@ -22,11 +22,11 @@ type Params = {
 export default async function StorePage(props: Params) {
   const params = await props.params;
   const searchParams = await props.searchParams;
-  const { sortBy, page, ...filterParams } = searchParams
+  const { sortBy, page, q, ...filterParams } = searchParams
 
   const filters: Record<string, string[]> = {}
   for (const [key, value] of Object.entries(filterParams)) {
-    if (value && key !== "sortBy" && key !== "page") {
+    if (value && key !== "sortBy" && key !== "page" && key !== "q" && key !== "search") {
       filters[key] = value.split(",")
     }
   }
@@ -37,6 +37,7 @@ export default async function StorePage(props: Params) {
       page={page}
       countryCode={params.countryCode}
       filters={filters}
+      query={q}
     />
   )
 }

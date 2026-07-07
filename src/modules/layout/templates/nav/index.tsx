@@ -119,7 +119,7 @@ export default async function Nav() {
               {/* Search */}
               <LocalizedClientLink
                 className="transition-colors duration-200"
-                href="/store"
+                href="/store?search=true"
                 aria-label="Buscar"
                 style={{ color: "#805062" }}
               >
