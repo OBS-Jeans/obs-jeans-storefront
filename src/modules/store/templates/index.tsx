@@ -3,6 +3,7 @@ import { Suspense } from "react"
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import CollectionSortBar from "@modules/collections/components/collection-sort-bar"
+import SearchInput from "@modules/store/components/search-input"
 
 import PaginatedProducts from "./paginated-products"
 
@@ -11,11 +12,13 @@ const StoreTemplate = ({
   page,
   countryCode,
   filters,
+  query,
 }: {
   sortBy?: SortOptions
   page?: string
   countryCode: string
   filters?: Record<string, string[]>
+  query?: string
 }) => {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
@@ -64,6 +67,11 @@ const StoreTemplate = ({
                 "linear-gradient(90deg, transparent, #b80049, transparent)",
             }}
           />
+
+          {/* Search input */}
+          <div className="mt-6 flex justify-center">
+            <SearchInput query={query} />
+          </div>
         </div>
       </div>
 
@@ -77,6 +85,7 @@ const StoreTemplate = ({
               page={pageNumber}
               countryCode={countryCode}
               filters={filters}
+              query={query}
             />
           </Suspense>
         </div>

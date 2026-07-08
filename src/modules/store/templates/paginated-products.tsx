@@ -25,6 +25,7 @@ export default async function PaginatedProducts({
   productsIds,
   countryCode,
   filters,
+  query,
 }: {
   sortBy?: SortOptions
   page: number
@@ -34,6 +35,7 @@ export default async function PaginatedProducts({
   productsIds?: string[]
   countryCode: string
   filters?: Record<string, string[]>
+  query?: string
 }) {
   const queryParams: PaginatedProductsParams = {
     limit: 12,
@@ -58,6 +60,11 @@ export default async function PaginatedProducts({
     queryParams["order"] = "created_at"
   }
 
+  const searchQueryParams: Record<string, unknown> = { ...queryParams }
+  if (query) {
+    searchQueryParams["q"] = query
+  }
+
   const region = await getRegion(countryCode)
 
   if (!region) {
@@ -68,7 +75,7 @@ export default async function PaginatedProducts({
     response: { products: allProducts, count: totalCount },
   } = await listProductsWithSort({
     page: 1,
-    queryParams: { ...queryParams, limit: 100 },
+    queryParams: { ...searchQueryParams, limit: 100 } as any,
     sortBy,
     countryCode,
   })
@@ -95,13 +102,14 @@ export default async function PaginatedProducts({
         <ProductFilters availableFilters={availableFilters} />
       )}
 
-      {/* Results count when filtering */}
-      {hasActiveFilters && (
+      {/* Results count when filtering or searching */}
+      {(hasActiveFilters || query) && (
         <p
           className="text-xs mb-4"
           style={{ color: "#805062", fontFamily: "Inter, sans-serif" }}
         >
           {count} producto{count !== 1 ? "s" : ""} encontrado{count !== 1 ? "s" : ""}
+          {query ? ` para "${query}"` : ""}
         </p>
       )}
 
@@ -122,7 +130,9 @@ export default async function PaginatedProducts({
             className="font-serif italic text-lg"
             style={{ color: "#805062" }}
           >
-            No se encontraron productos con estos filtros
+            {query
+              ? `No se encontraron productos para "${query}"`
+              : "No se encontraron productos con estos filtros"}
           </p>
         </div>
       )}
