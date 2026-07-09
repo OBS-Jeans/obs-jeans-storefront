@@ -36,7 +36,7 @@ export default async function Nav() {
           className="text-xs tracking-wide"
           style={{ color: "rgba(255,255,255,0.9)", fontFamily: "Inter, sans-serif" }}
         >
-          Envío gratis en compras mayores a $999
+          Envío gratis en todas tus compras
         </p>
       </div>
 

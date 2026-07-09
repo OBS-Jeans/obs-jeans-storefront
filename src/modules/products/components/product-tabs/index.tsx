@@ -91,7 +91,7 @@ const ShippingInfoTab = () => {
             <span style={labelStyle}>Envío Rápido</span>
             <p className="max-w-sm mt-1">
               Tu pedido llegará en 3-5 días hábiles a tu domicilio
-              o punto de recolección. Envío gratis en compras mayores a $999.
+              o punto de recolección. Envío gratis en todas tus compras.
             </p>
           </div>
         </div>
