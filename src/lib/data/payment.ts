@@ -45,6 +45,54 @@ export const sendOxxoVoucherEmail = async (data: {
     })
 }
 
+export const retrievePaymentCollection = async (id: string) => {
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  return sdk.client
+    .fetch<{ payment_collection: any }>(
+      `/store/payment-collections/${id}`,
+      {
+        method: "GET",
+        headers,
+        query: {
+          fields:
+            "+payment_sessions.data,+payment_sessions.status,+payment_sessions.provider_id",
+        },
+      }
+    )
+    .then(({ payment_collection }) => payment_collection)
+    .catch((err) => {
+      console.error("Failed to retrieve payment collection:", err)
+      return null
+    })
+}
+
+export const initializePaymentCollectionSession = async (
+  paymentCollectionId: string,
+  providerId: string
+) => {
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  return sdk.client
+    .fetch<{ payment_session: any }>(
+      `/store/payment-collections/${paymentCollectionId}/payment-sessions`,
+      {
+        method: "POST",
+        body: { provider_id: providerId },
+        headers,
+      }
+    )
+    .then(({ payment_session }) => payment_session)
+    .catch((err) => {
+      console.error("Failed to initialize payment session:", err)
+      return null
+    })
+}
+
 export const listCartPaymentMethods = async (regionId: string) => {
   const headers = {
     ...(await getAuthHeaders()),
