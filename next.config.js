@@ -25,6 +25,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    // Bypass Vercel image optimization to avoid 402 quota limits (GRA-457)
     unoptimized: true,
     remotePatterns: [
       {
