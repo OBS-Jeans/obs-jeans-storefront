@@ -107,9 +107,16 @@ const Addresses = ({
                       {cart.shipping_address.last_name}
                     </Text>
                     <Text className="txt-medium text-ui-fg-subtle">
-                      {cart.shipping_address.address_1}{" "}
-                      {cart.shipping_address.address_2}
+                      {cart.shipping_address.address_1}
+                      {cart.shipping_address.address_2
+                        ? `, Int. ${cart.shipping_address.address_2}`
+                        : ""}
                     </Text>
+                    {cart.shipping_address.company && (
+                      <Text className="txt-medium text-ui-fg-subtle">
+                        Col. {cart.shipping_address.company}
+                      </Text>
+                    )}
                     <Text className="txt-medium text-ui-fg-subtle">
                       {cart.shipping_address.postal_code},{" "}
                       {cart.shipping_address.city}
@@ -153,9 +160,16 @@ const Addresses = ({
                           {cart.billing_address?.last_name}
                         </Text>
                         <Text className="txt-medium text-ui-fg-subtle">
-                          {cart.billing_address?.address_1}{" "}
-                          {cart.billing_address?.address_2}
+                          {cart.billing_address?.address_1}
+                          {cart.billing_address?.address_2
+                            ? `, Int. ${cart.billing_address?.address_2}`
+                            : ""}
                         </Text>
+                        {cart.billing_address?.company && (
+                          <Text className="txt-medium text-ui-fg-subtle">
+                            Col. {cart.billing_address?.company}
+                          </Text>
+                        )}
                         <Text className="txt-medium text-ui-fg-subtle">
                           {cart.billing_address?.postal_code},{" "}
                           {cart.billing_address?.city}

@@ -22,12 +22,15 @@ const ShippingAddress = ({
     "shipping_address.first_name": cart?.shipping_address?.first_name || "",
     "shipping_address.last_name": cart?.shipping_address?.last_name || "",
     "shipping_address.address_1": cart?.shipping_address?.address_1 || "",
+    "shipping_address.address_2": cart?.shipping_address?.address_2 || "",
     "shipping_address.company": cart?.shipping_address?.company || "",
     "shipping_address.postal_code": cart?.shipping_address?.postal_code || "",
     "shipping_address.city": cart?.shipping_address?.city || "",
     "shipping_address.country_code": cart?.shipping_address?.country_code || "",
     "shipping_address.province": cart?.shipping_address?.province || "",
     "shipping_address.phone": cart?.shipping_address?.phone || "",
+    "shipping_address.metadata.referencia":
+      (cart?.shipping_address as any)?.metadata?.referencia || "",
     email: cart?.email || "",
   })
 
@@ -55,12 +58,15 @@ const ShippingAddress = ({
         "shipping_address.first_name": address?.first_name || "",
         "shipping_address.last_name": address?.last_name || "",
         "shipping_address.address_1": address?.address_1 || "",
+        "shipping_address.address_2": address?.address_2 || "",
         "shipping_address.company": address?.company || "",
         "shipping_address.postal_code": address?.postal_code || "",
         "shipping_address.city": address?.city || "",
         "shipping_address.country_code": address?.country_code || "",
         "shipping_address.province": address?.province || "",
         "shipping_address.phone": address?.phone || "",
+        "shipping_address.metadata.referencia":
+          (address as any)?.metadata?.referencia || "",
       }))
 
     email &&
@@ -130,7 +136,7 @@ const ShippingAddress = ({
           data-testid="shipping-last-name-input"
         />
         <Input
-          label="Dirección"
+          label="Calle y número"
           name="shipping_address.address_1"
           autoComplete="address-line1"
           value={formData["shipping_address.address_1"]}
@@ -139,11 +145,18 @@ const ShippingAddress = ({
           data-testid="shipping-address-input"
         />
         <Input
-          label="Empresa"
+          label="Número interior"
+          name="shipping_address.address_2"
+          autoComplete="address-line2"
+          value={formData["shipping_address.address_2"]}
+          onChange={handleChange}
+          data-testid="shipping-address-2-input"
+        />
+        <Input
+          label="Colonia"
           name="shipping_address.company"
           value={formData["shipping_address.company"]}
           onChange={handleChange}
-          autoComplete="organization"
           data-testid="shipping-company-input"
         />
         <Input
@@ -164,6 +177,14 @@ const ShippingAddress = ({
           required
           data-testid="shipping-city-input"
         />
+        <Input
+          label="Estado / Provincia"
+          name="shipping_address.province"
+          autoComplete="address-level1"
+          value={formData["shipping_address.province"]}
+          onChange={handleChange}
+          data-testid="shipping-province-input"
+        />
         <CountrySelect
           name="shipping_address.country_code"
           autoComplete="country"
@@ -174,12 +195,11 @@ const ShippingAddress = ({
           data-testid="shipping-country-select"
         />
         <Input
-          label="Estado / Provincia"
-          name="shipping_address.province"
-          autoComplete="address-level1"
-          value={formData["shipping_address.province"]}
+          label="Referencia del domicilio"
+          name="shipping_address.metadata.referencia"
+          value={formData["shipping_address.metadata.referencia"]}
           onChange={handleChange}
-          data-testid="shipping-province-input"
+          data-testid="shipping-referencia-input"
         />
       </div>
       <div className="my-8">
