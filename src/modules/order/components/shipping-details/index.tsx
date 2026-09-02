@@ -27,9 +27,16 @@ const ShippingDetails = ({ order }: ShippingDetailsProps) => {
             {order.shipping_address?.last_name}
           </Text>
           <Text className="txt-medium text-ui-fg-subtle">
-            {order.shipping_address?.address_1}{" "}
-            {order.shipping_address?.address_2}
+            {order.shipping_address?.address_1}
+            {order.shipping_address?.address_2
+              ? `, Int. ${order.shipping_address?.address_2}`
+              : ""}
           </Text>
+          {order.shipping_address?.company && (
+            <Text className="txt-medium text-ui-fg-subtle">
+              Col. {order.shipping_address?.company}
+            </Text>
+          )}
           <Text className="txt-medium text-ui-fg-subtle">
             {order.shipping_address?.postal_code},{" "}
             {order.shipping_address?.city}
